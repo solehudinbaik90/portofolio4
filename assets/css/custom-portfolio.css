@@ -1,0 +1,50 @@
+/* ============================================
+   custom portfolio css
+   ============================================ */
+
+.portfolio .box {
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+/* --- Pagination --- */
+.pagination {
+    text-align: center;
+    margin-top: 30px;
+    font-family: Arial, sans-serif;
+}
+
+.pagination .page-link {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 8px 14px;
+    border-radius: 5px;
+    background: #f0f0f0;
+    color: #000;
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s;
+}
+
+.pagination .page-link:hover {
+    background: #CB2729;
+    color: #fff;
+}
+
+.pagination .page-link.active {
+    background: #CB2729;
+    color: #fff;
+    font-weight: bold;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    .box img { height: 180px; }
+    .box .content h3 { font-size: 16px; }
+}
+
+@media (max-width: 480px) {
+    .box img { height: 150px; }
+    .box .content h3 { font-size: 14px; }
+    .box .content p { font-size: 13px; }
+    .box .content .btn { padding: 6px 14px; font-size: 14px; }
+}

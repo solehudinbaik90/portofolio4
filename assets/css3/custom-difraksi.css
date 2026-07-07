@@ -1,0 +1,313 @@
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0a1a;
+    color: #e0e0ff;
+    font-family: 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    background: linear-gradient(135deg, #1a1a3e, #2d2d6b);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border-bottom: 2px solid #4444aa;
+    box-shadow: 0 2px 20px rgba(100,100,255,0.3);
+  }
+
+  header h1 {
+    font-size: 1.3rem;
+    color: #aad4ff;
+    letter-spacing: 1px;
+  }
+
+  header span.badge {
+    background: #3355cc;
+    color: #ccdeff;
+    font-size: 0.72rem;
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+  }
+
+  .main-layout {
+    display: flex;
+    flex: 1;
+    gap: 0;
+    overflow: hidden;
+  }
+
+  /* ── PANEL KIRI ── */
+  .controls {
+    width: 270px;
+    min-width: 220px;
+    background: #111128;
+    border-right: 1px solid #2a2a5a;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    overflow-y: auto;
+  }
+
+  .section-title {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #7788cc;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #2a2a5a;
+    margin-bottom: 4px;
+  }
+
+  .mode-tabs {
+    display: flex;
+    gap: 4px;
+  }
+
+  .mode-tab {
+    flex: 1;
+    padding: 8px 4px;
+    border: 1px solid #3344aa;
+    background: #161635;
+    color: #8899cc;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    text-align: center;
+    transition: all 0.2s;
+  }
+
+  .mode-tab.active {
+    background: #3355cc;
+    color: #fff;
+    border-color: #5577ee;
+    box-shadow: 0 0 12px rgba(80,120,255,0.5);
+  }
+
+  .mode-tab:hover:not(.active) { background: #1e2050; color: #aac0ff; }
+
+  .control-group { display: flex; flex-direction: column; gap: 8px; }
+
+  .control-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .control-row label {
+    font-size: 0.78rem;
+    color: #99aadd;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .control-row label span {
+    color: #ffdd88;
+    font-weight: 600;
+  }
+
+  input[type=range] {
+    width: 100%;
+    accent-color: #5577ff;
+    height: 4px;
+    cursor: pointer;
+  }
+
+  .wavelength-bar {
+    height: 8px;
+    border-radius: 4px;
+    margin-top: 2px;
+    background: linear-gradient(to right,
+      #7700ff,#4400ff,#0044ff,#0088ff,#00cc88,#00ff00,#aaff00,#ffff00,#ffaa00,#ff5500,#ff0000);
+  }
+
+  /* Color picker for wavelength */
+  .wl-indicator {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 6px;
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+
+  .btn {
+    padding: 9px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.82rem;
+    font-weight: 600;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #2255dd, #4477ff);
+    color: white;
+    box-shadow: 0 2px 12px rgba(60,100,255,0.4);
+  }
+
+  .btn-primary:hover { background: linear-gradient(135deg, #3366ee, #5588ff); transform: translateY(-1px); }
+
+  .btn-secondary {
+    background: #1e1e44;
+    color: #8899cc;
+    border: 1px solid #3344aa;
+  }
+
+  .btn-secondary:hover { background: #252550; color: #aabdee; }
+
+  .btn-row { display: flex; gap: 8px; }
+
+  /* Checkbox toggle */
+  .toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: #99aadd;
+    padding: 4px 0;
+  }
+
+  .toggle {
+    width: 36px; height: 18px;
+    background: #333360;
+    border-radius: 9px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.2s;
+    border: 1px solid #4455aa;
+  }
+
+  .toggle.on { background: #3355ee; }
+
+  .toggle::after {
+    content: '';
+    position: absolute;
+    width: 12px; height: 12px;
+    background: white;
+    border-radius: 50%;
+    top: 2px; left: 2px;
+    transition: left 0.2s;
+  }
+
+  .toggle.on::after { left: 20px; }
+
+  /* ── CANVAS AREA ── */
+  .canvas-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background: #05050f;
+    overflow: hidden;
+  }
+
+  canvas { display: block; }
+
+  #mainCanvas {
+    width: 100%;
+    flex: 1;
+  }
+
+  .canvas-labels {
+    position: absolute;
+    top: 8px; left: 8px;
+    font-size: 0.72rem;
+    color: #4466aa;
+    pointer-events: none;
+  }
+
+  /* ── PANEL KANAN ── */
+  .info-panel {
+    width: 220px;
+    background: #0e0e22;
+    border-left: 1px solid #2a2a5a;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow-y: auto;
+  }
+
+  .formula-box {
+    background: #131330;
+    border: 1px solid #333380;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 0.8rem;
+    line-height: 1.7;
+  }
+
+  .formula-box .formula {
+    font-family: 'Courier New', monospace;
+    color: #ffcc55;
+    font-size: 0.85rem;
+    text-align: center;
+    margin: 6px 0;
+    padding: 6px;
+    background: #1a1a44;
+    border-radius: 6px;
+  }
+
+  .formula-title {
+    font-size: 0.7rem;
+    color: #7788cc;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 10px;
+    background: #131330;
+    border-radius: 6px;
+    border: 1px solid #252560;
+    font-size: 0.8rem;
+  }
+
+  .result-item .label { color: #8899cc; }
+  .result-item .value { color: #aaddff; font-weight: 600; }
+
+  /* Intensity canvas */
+  #intensityCanvas {
+    width: 100%;
+    height: 100px;
+    border-top: 1px solid #1a1a44;
+  }
+
+  .intensity-label {
+    font-size: 0.65rem;
+    color: #4455aa;
+    text-align: center;
+    padding: 4px;
+    background: #080815;
+  }
+
+  .screen-container {
+    position: relative;
+  }
+
+  .screen-label {
+    font-size: 0.65rem;
+    color: #3344aa;
+    text-align: center;
+    padding: 3px;
+    background: #060612;
+    letter-spacing: 1px;
+  }
+
+  #screenCanvas {
+    width: 100%;
+    height: 70px;
+  }

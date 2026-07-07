@@ -1,0 +1,268 @@
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    min-height: 100vh;
+    color: #fff;
+    padding: 20px;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 6px;
+    background: linear-gradient(90deg, #f7971e, #ffd200);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .subtitle {
+    text-align: center;
+    color: #aaa;
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+  }
+
+  .formula-box {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,220,100,0.3);
+    border-radius: 12px;
+    padding: 12px 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1rem;
+    color: #ffd200;
+    letter-spacing: 0.5px;
+  }
+
+  .main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto 20px;
+  }
+
+  .panel {
+    background: rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .panel h3 {
+    font-size: 1rem;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .hot { color: #ff6b35; border-top: 3px solid #ff6b35; }
+  .cold { color: #4fc3f7; border-top: 3px solid #4fc3f7; }
+
+  label {
+    display: block;
+    font-size: 0.78rem;
+    color: #bbb;
+    margin-bottom: 4px;
+    margin-top: 12px;
+  }
+
+  input[type=range] {
+    width: 100%;
+    accent-color: #ffd200;
+    cursor: pointer;
+  }
+
+  .val-display {
+    text-align: right;
+    font-size: 0.85rem;
+    color: #ffd200;
+    font-weight: bold;
+    margin-top: 2px;
+  }
+
+  select {
+    width: 100%;
+    padding: 8px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 0.85rem;
+    cursor: pointer;
+    margin-top: 4px;
+  }
+
+  select option { background: #302b63; }
+
+  /* Canvas area */
+  .viz-wrap {
+    max-width: 1000px;
+    margin: 0 auto 20px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 20px;
+  }
+
+  canvas {
+    width: 100%;
+    border-radius: 10px;
+    display: block;
+  }
+
+  /* Result panel */
+  .result-wrap {
+    max-width: 1000px;
+    margin: 0 auto 20px;
+  }
+
+  .result-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .result-card {
+    background: rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 14px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.12);
+    transition: transform 0.2s;
+  }
+
+  .result-card:hover { transform: translateY(-2px); }
+
+  .result-card .label {
+    font-size: 0.72rem;
+    color: #aaa;
+    margin-bottom: 6px;
+  }
+
+  .result-card .value {
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+
+  .result-card.eq { border-color: #a8e063; }
+  .result-card.eq .value { color: #a8e063; }
+  .result-card.hot-card .value { color: #ff6b35; }
+  .result-card.cold-card .value { color: #4fc3f7; }
+  .result-card.check .value { font-size: 1rem; }
+
+  /* Buttons */
+  .btn-row {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: 0 auto 20px;
+  }
+
+  button {
+    padding: 11px 28px;
+    border: none;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  #btnSimulate {
+    background: linear-gradient(90deg, #f7971e, #ffd200);
+    color: #1a1a2e;
+  }
+
+  #btnSimulate:hover { transform: scale(1.04); box-shadow: 0 4px 20px rgba(255,200,0,0.4); }
+
+  #btnReset {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  #btnReset:hover { background: rgba(255,255,255,0.18); }
+
+  /* Explanation box */
+  .explain-box {
+    max-width: 1000px;
+    margin: 0 auto 20px;
+    background: rgba(168,224,99,0.08);
+    border: 1px solid rgba(168,224,99,0.25);
+    border-radius: 12px;
+    padding: 16px 20px;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: #ddd;
+  }
+
+  .explain-box b { color: #ffd200; }
+
+  /* Status indicator */
+  #statusBar {
+    max-width: 1000px;
+    margin: 0 auto 16px;
+    text-align: center;
+    font-size: 0.9rem;
+    min-height: 28px;
+    color: #a8e063;
+    font-weight: 600;
+  }
+
+  /* Thermometer visual */
+  .thermo-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    padding: 10px 0 4px;
+    gap: 12px;
+  }
+
+  .thermo-item {
+    text-align: center;
+    flex: 1;
+  }
+
+  .thermo-item .thermo-label {
+    font-size: 0.75rem;
+    color: #aaa;
+    margin-bottom: 6px;
+  }
+
+  .thermo-outer {
+    width: 28px;
+    height: 120px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 14px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid rgba(255,255,255,0.2);
+  }
+
+  .thermo-fill {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-radius: 12px;
+    transition: height 0.8s ease, background 0.8s;
+  }
+
+  .thermo-temp {
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-top: 6px;
+  }
+
+  @media (max-width: 640px) {
+    .main-grid { grid-template-columns: 1fr; }
+    .result-grid { grid-template-columns: repeat(2, 1fr); }
+    h1 { font-size: 1.3rem; }
+  }

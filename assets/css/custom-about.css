@@ -1,0 +1,136 @@
+/* =========================================
+   custom about css
+   ========================================= */
+
+/* --- Skills Grid --- */
+.skills .box-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+
+.skills .box {
+    background: #1e1e1e;
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.skills .box img {
+    height: 60px;
+    margin-bottom: 0.5rem;
+}
+
+.skills .box h3 {
+    margin: 0.5rem 0;
+    font-size: 1.2rem;
+}
+
+/* --- Progress Bar --- */
+.progress {
+    width: 100%;
+    height: 12px;
+    background: #333;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 10px 0;
+}
+
+.progress span {
+    height: 100%;
+    display: block;
+    width: 0;
+    background: linear-gradient(90deg, #CB2729, #CB2729);
+    border-radius: 20px;
+    transition: width 1s ease;
+}
+
+.skills .percent {
+    font-size: 18px;
+    font-weight: 600;
+    color: #CB2729;
+}
+
+/* --- Overlay --- */
+#overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 999;
+}
+
+/* --- Skill Info Popup --- */
+.skill-info {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+.skill-info h2 {
+    margin-bottom: 15px;
+    color: #CB2729;
+    text-align: center;
+}
+
+.skill-content {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    white-space: pre-wrap;
+    overflow-x: auto;
+    text-align: left;
+    font-family: Consolas, Monaco, monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    text-transform: none !important;
+}
+
+.no-data {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* --- Category Badge --- */
+.box .category {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 2px 8px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #e74c3c;
+    border-radius: 5px;
+}
+
+/* --- Education Columns --- */
+.education .box-container {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.column {
+    flex: 1;
+    min-width: 300px;
+}
+
+/* --- Fade-in Animation --- */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}

@@ -1,0 +1,281 @@
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    min-height: 100vh;
+    color: #fff;
+  }
+
+  header {
+    text-align: center;
+    padding: 20px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  header h1 {
+    font-size: 1.8rem;
+    background: linear-gradient(90deg, #00d4ff, #7b2ff7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 6px;
+  }
+
+  header p { color: #aaa; font-size: 0.9rem; }
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px;
+    flex-wrap: wrap;
+  }
+
+  .tab-btn {
+    padding: 10px 28px;
+    border: 2px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.05);
+    color: #ccc;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+  }
+
+  .tab-btn.active, .tab-btn:hover {
+    background: linear-gradient(135deg, #00d4ff, #7b2ff7);
+    border-color: transparent;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,212,255,0.3);
+  }
+
+  .panel {
+    display: none;
+    padding: 0 24px 40px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .panel.active { display: block; }
+
+  /* ===== CARDS ===== */
+  .card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(10px);
+  }
+
+  .card h2 {
+    font-size: 1.1rem;
+    color: #00d4ff;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* ===== SLIDER CONTROL ===== */
+  .control-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+
+  .control-row label {
+    color: #ccc;
+    font-size: 0.88rem;
+    min-width: 130px;
+  }
+
+  input[type=range] {
+    flex: 1;
+    min-width: 160px;
+    accent-color: #00d4ff;
+    cursor: pointer;
+  }
+
+  .val-badge {
+    background: rgba(0,212,255,0.15);
+    border: 1px solid #00d4ff;
+    color: #00d4ff;
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    min-width: 72px;
+    text-align: center;
+  }
+
+  /* ===== RESULT BOX ===== */
+  .result-box {
+    background: rgba(0,0,0,0.3);
+    border: 2px solid #00d4ff;
+    border-radius: 12px;
+    padding: 16px 24px;
+    margin-top: 14px;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .result-item { text-align: center; }
+  .result-item .label { font-size: 0.75rem; color: #aaa; margin-bottom: 4px; }
+  .result-item .value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffd700;
+    text-shadow: 0 0 10px rgba(255,215,0,0.5);
+  }
+
+  /* ===== CANVAS ===== */
+  canvas {
+    width: 100%;
+    border-radius: 10px;
+    background: #1a1a2e;
+    cursor: crosshair;
+    display: block;
+  }
+
+  /* ===== INFO MATERI ===== */
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+  }
+
+  .info-item {
+    background: rgba(123,47,247,0.15);
+    border: 1px solid rgba(123,47,247,0.4);
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+
+  .info-item strong { color: #a78bfa; display: block; margin-bottom: 4px; }
+
+  /* ===== BADGE ===== */
+  .badge-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+
+  .badge {
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 600;
+  }
+
+  .badge-blue { background: rgba(0,212,255,0.2); color: #00d4ff; border: 1px solid #00d4ff; }
+  .badge-purple { background: rgba(123,47,247,0.2); color: #a78bfa; border: 1px solid #a78bfa; }
+  .badge-gold { background: rgba(255,215,0,0.15); color: #ffd700; border: 1px solid #ffd700; }
+
+  /* ===== HOW TO READ ===== */
+  .steps {
+    counter-reset: step;
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+  }
+
+  .steps li {
+    counter-increment: step;
+    padding: 8px 8px 8px 42px;
+    position: relative;
+    font-size: 0.88rem;
+    color: #ccc;
+    line-height: 1.5;
+    margin-bottom: 6px;
+    border-left: 2px solid rgba(0,212,255,0.2);
+  }
+
+  .steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 10px;
+    top: 8px;
+    background: #00d4ff;
+    color: #000;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .quiz-btn {
+    padding: 10px 24px;
+    background: linear-gradient(135deg, #7b2ff7, #00d4ff);
+    border: none;
+    border-radius: 20px;
+    color: #fff;
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin-top: 12px;
+    transition: transform 0.2s;
+  }
+
+  .quiz-btn:hover { transform: scale(1.04); }
+
+  .quiz-area {
+    margin-top: 14px;
+    background: rgba(0,0,0,0.25);
+    border-radius: 10px;
+    padding: 16px;
+    display: none;
+  }
+
+  .quiz-area.show { display: block; }
+  .quiz-area p { margin-bottom: 10px; color: #ccc; font-size: 0.9rem; }
+
+  .quiz-input {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 8px;
+    color: #fff;
+    padding: 8px 14px;
+    font-size: 1rem;
+    width: 120px;
+    margin-right: 10px;
+  }
+
+  .check-btn {
+    padding: 8px 20px;
+    background: #00d4ff;
+    border: none;
+    border-radius: 8px;
+    color: #000;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+
+  .feedback {
+    margin-top: 10px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    min-height: 24px;
+  }
+
+  .feedback.correct { color: #4ade80; }
+  .feedback.wrong { color: #f87171; }
+
+  @media (max-width: 600px) {
+    header h1 { font-size: 1.3rem; }
+    .result-item .value { font-size: 1.2rem; }
+  }

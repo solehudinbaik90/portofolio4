@@ -1,0 +1,58 @@
+/* =========================================
+   custom index css
+   ========================================= */
+
+.hero-title {
+    font-size: 32px;
+    font-weight: 600;
+    color: #ff0000;
+    line-height: 1.2;
+}
+
+#typed-text {
+    display: inline !important;
+    white-space: nowrap !important;
+}
+
+.typed-cursor {
+    display: inline !important;
+    font-size: 32px;
+    color: #ff0000;
+    vertical-align: top;
+    margin-left: 2px;
+    opacity: 1;
+}
+
+.typed-cursor.typed-cursor--blink {
+    animation: typedjsBlink 0.7s infinite;
+}
+
+@keyframes typedjsBlink {
+    50% { opacity: 0; }
+}
+
+/* Tablet */
+@media (max-width: 992px) {
+    .hero-title  { font-size: 26px; }
+    .typed-cursor { font-size: 26px; }
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+    .hero-title {
+        font-size: 20px;
+        line-height: 1.4;
+    }
+    .typed-cursor { font-size: 20px; }
+    #typed-text { white-space: normal !important; }
+}
+
+#snow-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}

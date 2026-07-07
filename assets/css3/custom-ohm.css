@@ -1,0 +1,351 @@
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    overflow-x: hidden;
+  }
+
+  header {
+    width: 100%;
+    background: rgba(0,0,0,0.4);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 2px solid #e87600;
+    backdrop-filter: blur(10px);
+  }
+
+  .soleh-logo {
+    width: 44px; height: 44px;
+    background: linear-gradient(135deg, #6acef5, #0066cc);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: bold; font-size: 14px; color: white;
+    box-shadow: 0 2px 8px rgba(106,206,245,0.5);
+  }
+
+  header h1 {
+    font-size: 1.3rem;
+    color: #6acef5;
+    text-shadow: 0 0 10px rgba(106,206,245,0.5);
+  }
+
+  .main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1100px;
+    padding: 20px;
+    gap: 20px;
+  }
+
+  /* === FORMULA SECTION === */
+  .formula-section {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 20px;
+    padding: 30px 40px;
+    text-align: center;
+    width: 100%;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+
+  .formula-title {
+    font-size: 0.9rem;
+    color: #aaa;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .formula-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    position: relative;
+  }
+
+  .formula-letter {
+    font-family: 'Times New Roman', serif;
+    font-weight: bold;
+    font-style: italic;
+    display: inline-block;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-origin: center bottom;
+    text-shadow: 0 0 20px currentColor;
+    line-height: 1;
+  }
+
+  .letter-V { color: #3399ff; }
+  .letter-I { color: #ff4444; }
+  .letter-R { color: #3399ff; }
+  .letter-eq { color: #fff; font-size: 3rem; font-style: normal; }
+
+  .formula-desc {
+    margin-top: 12px;
+    font-size: 0.85rem;
+    color: #88aacc;
+  }
+
+  .relative-size-desc {
+    margin-top: 8px;
+    font-size: 0.82rem;
+    color: #aaccee;
+    background: rgba(255,255,255,0.05);
+    padding: 6px 14px;
+    border-radius: 20px;
+    display: inline-block;
+  }
+
+  /* === CIRCUIT SECTION === */
+  .circuit-section {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 20px;
+    width: 100%;
+    backdrop-filter: blur(10px);
+  }
+
+  .circuit-title {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #88aacc;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 16px;
+  }
+
+  .circuit-canvas-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  canvas#circuit {
+    border-radius: 12px;
+    max-width: 100%;
+  }
+
+  /* === BOTTOM PANEL === */
+  .bottom-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    width: 100%;
+  }
+
+  @media (max-width: 600px) {
+    .bottom-panel { grid-template-columns: 1fr; }
+  }
+
+  /* === SLIDER PANEL === */
+  .slider-panel {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 20px;
+    padding: 24px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  }
+
+  .slider-group {
+    margin-bottom: 24px;
+  }
+
+  .slider-group:last-child { margin-bottom: 0; }
+
+  .slider-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .slider-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+  }
+
+  .slider-letter {
+    font-family: 'Times New Roman', serif;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 1.4rem;
+  }
+
+  .slider-name { color: #ccc; font-size: 0.85rem; }
+
+  .slider-value {
+    font-size: 1.1rem;
+    font-weight: bold;
+    background: rgba(0,0,0,0.3);
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .slider-unit { font-size: 0.75rem; color: #aaa; margin-left: 2px; }
+
+  /* Custom Slider */
+  input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  input[type=range]:hover { opacity: 0.9; }
+
+  input[type=range].voltage-slider {
+    background: linear-gradient(to right, #0044cc, #3399ff);
+  }
+
+  input[type=range].resistance-slider {
+    background: linear-gradient(to right, #003399, #6699ff);
+  }
+
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    transition: transform 0.15s;
+    cursor: grab;
+  }
+
+  input[type=range]::-webkit-slider-thumb:active {
+    transform: scale(1.2);
+    cursor: grabbing;
+  }
+
+  /* === CURRENT DISPLAY === */
+  .current-display {
+    background: linear-gradient(135deg, rgba(255,50,50,0.1), rgba(200,0,0,0.2));
+    border: 1px solid rgba(255,80,80,0.3);
+    border-radius: 20px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(255,50,50,0.1);
+  }
+
+  .current-label {
+    font-size: 0.8rem;
+    color: #ffaaaa;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+
+  .current-equation {
+    font-size: 1rem;
+    color: #ddd;
+    margin-bottom: 16px;
+  }
+
+  .current-value-big {
+    font-family: 'Times New Roman', serif;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 4.5rem;
+    color: #ff4444;
+    text-shadow: 0 0 30px rgba(255,60,60,0.6), 0 0 60px rgba(255,60,60,0.3);
+    line-height: 1;
+    transition: all 0.3s ease;
+  }
+
+  .current-unit-display {
+    font-size: 1.1rem;
+    color: #ff8888;
+    margin-top: 6px;
+  }
+
+  .current-bar {
+    width: 100%;
+    height: 10px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 5px;
+    margin-top: 16px;
+    overflow: hidden;
+  }
+
+  .current-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ff2222, #ff8800);
+    border-radius: 5px;
+    transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 0 10px rgba(255,100,0,0.5);
+  }
+
+  /* === INFO BOX === */
+  .info-box {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 14px 18px;
+    width: 100%;
+    font-size: 0.82rem;
+    color: #aac;
+    line-height: 1.6;
+  }
+
+  .info-box strong { color: #6acef5; }
+
+  /* === RESET BUTTON === */
+  .reset-btn {
+    background: linear-gradient(135deg, #e87600, #ff9900);
+    border: none;
+    color: white;
+    padding: 12px 32px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(232,118,0,0.4);
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+  }
+
+  .reset-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(232,118,0,0.6);
+  }
+
+  .reset-btn:active { transform: translateY(0); }
+
+  /* Pulse animation for arrows */
+  @keyframes arrowFlow {
+    0% { opacity: 0.3; transform: translateX(0); }
+    50% { opacity: 1; }
+    100% { opacity: 0.3; transform: translateX(6px); }
+  }
+
+  .glow-pulse {
+    animation: glowPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes glowPulse {
+    0%, 100% { text-shadow: 0 0 20px currentColor; }
+    50% { text-shadow: 0 0 40px currentColor, 0 0 80px currentColor; }
+  }

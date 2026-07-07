@@ -1,0 +1,197 @@
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      min-height: 100vh;
+      color: #e0f7fa;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 1.6rem;
+      margin-bottom: 4px;
+      color: #80deea;
+      text-shadow: 0 0 12px #00bcd4aa;
+    }
+    .subtitle {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #90a4ae;
+      margin-bottom: 16px;
+    }
+
+    .formula-box {
+      background: rgba(0,188,212,0.1);
+      border: 1px solid #00bcd4;
+      border-radius: 10px;
+      padding: 12px 20px;
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 1rem;
+      color: #e0f7fa;
+      letter-spacing: 0.5px;
+    }
+    .formula-box span { color: #80deea; font-weight: bold; }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 700px) { .main-grid { grid-template-columns: 1fr; } }
+
+    .panel {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(0,188,212,0.3);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .panel h2 {
+      font-size: 1rem;
+      margin-bottom: 12px;
+      color: #80deea;
+      border-bottom: 1px solid rgba(0,188,212,0.2);
+      padding-bottom: 6px;
+    }
+
+    .control-group { margin-bottom: 14px; }
+    .control-group label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      color: #b0bec5;
+      margin-bottom: 4px;
+    }
+    .control-group label .val {
+      font-weight: bold;
+      color: #e0f7fa;
+      min-width: 70px;
+      text-align: right;
+    }
+    input[type=range] {
+      width: 100%;
+      accent-color: #00bcd4;
+      cursor: pointer;
+    }
+
+    /* Pipe canvas */
+    #pipeCanvas {
+      width: 100%;
+      border-radius: 10px;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(0,188,212,0.2);
+      display: block;
+    }
+
+    /* Results */
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 600px) { .results-grid { grid-template-columns: 1fr 1fr; } }
+
+    .result-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(0,188,212,0.25);
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+    }
+    .result-card .label { font-size: 0.75rem; color: #90a4ae; margin-bottom: 4px; }
+    .result-card .value { font-size: 1.2rem; font-weight: bold; color: #80deea; }
+    .result-card .unit  { font-size: 0.7rem; color: #607d8b; }
+
+    .result-card.highlight { border-color: #00e5ff; background: rgba(0,229,255,0.08); }
+    .result-card.valid   { border-color: #69f0ae; background: rgba(105,240,174,0.07); }
+    .result-card.invalid { border-color: #ff5252; background: rgba(255,82,82,0.07); }
+
+    /* Info */
+    .info-box {
+      background: rgba(255,255,255,0.04);
+      border-left: 4px solid #00bcd4;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 0.83rem;
+      color: #b0bec5;
+      line-height: 1.6;
+    }
+    .info-box strong { color: #80deea; }
+
+    /* Buttons */
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+    button {
+      padding: 8px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-run   { background: #00bcd4; color: #0f2027; }
+    .btn-run:hover { background: #00e5ff; transform: translateY(-1px); }
+    .btn-reset { background: rgba(255,255,255,0.1); color: #e0f7fa; border: 1px solid rgba(255,255,255,0.2); }
+    .btn-reset:hover { background: rgba(255,255,255,0.18); }
+
+    /* Mode tabs */
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .tab {
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      border: 1px solid rgba(0,188,212,0.3);
+      background: transparent;
+      color: #90a4ae;
+      transition: all 0.2s;
+    }
+    .tab.active {
+      background: #00bcd4;
+      color: #0f2027;
+      font-weight: 700;
+      border-color: #00bcd4;
+    }
+
+    .section-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #546e7a;
+      margin-bottom: 8px;
+    }
+
+    /* Pressure gauge bars */
+    .gauge-row { display: flex; gap: 10px; margin-bottom: 14px; align-items: flex-end; }
+    .gauge-item { flex: 1; text-align: center; }
+    .gauge-bar-wrap {
+      height: 80px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 6px 6px 0 0;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(0,188,212,0.15);
+    }
+    .gauge-bar {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(180deg, #00bcd4, #006064);
+      transition: height 0.4s ease;
+      border-radius: 4px 4px 0 0;
+    }
+    .gauge-label { font-size: 0.72rem; color: #90a4ae; margin-top: 4px; }
+    .gauge-value { font-size: 0.82rem; color: #80deea; font-weight: bold; }
