@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="assets/logo/logo-file-1760448788.png">
+    <title>MSOLEH | KONTAK</title>
+    <link rel="stylesheet" href="assets/fonts/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/custom-contact.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" id="homeLink"><i class="fas fa-home"></i> <span>beranda</span></a>
+        <a href="about.html"><i class="fas fa-user"></i> <span>profil</span></a>
+        <a href="portfolio.html"><i class="fas fa-briefcase"></i> <span>proyek</span></a>
+        <a href="games.html"><i class="fa fa-gamepad"></i> <span>game</span></a>
+        <a href="lesson.html"><i class="bi bi-camera-video-fill"></i> <span>tutor</span></a>
+        <a href="contact.html"><i class="fas fa-address-book"></i> <span>kontak</span></a>
+    </nav>
+
+    <section class="contact">
+        <h1 class="heading"><span>kontak</span></h1>
+        <div class="contact-row">
+
+            <!-- Kolom 1: Info Kontak -->
+            <div class="column form-column">
+                <hr class="divider">
+                <h2>hubungi saya</h2>
+                <hr class="divider">
+
+                <div class="box-container">
+                    <div class="box">
+                        <p>👋 Senang berkenalan dengan Anda!</p>
+                    </div>
+                </div>
+
+                <div class="box-container">
+                    <div class="box">
+                        <div class="share">
+                            <a target="_blank" href="https://www.facebook.com/soleh.muhamad" class="bi bi-facebook" title="Facebook"></a>
+                            <a target="_blank" href="https://www.facebook.com/soleh.muhamad" class="bi bi-instagram" title="Instagram"></a>
+                            <a target="_blank" href="https://www.facebook.com/soleh.muhamad" class="bi bi-linkedin" title="LinkedIn"></a>
+                            <a target="_blank" href="https://www.facebook.com/soleh.muhamad" class="bi bi-github" title="GitHub"></a>
+                            <a target="_blank" href="https://www.facebook.com/soleh.muhamad" class="bi bi-youtube" title="YouTube"></a>
+                            <a target="_blank" href="https://www.facebook.com/soleh.muhamad" class="bi bi-telegram" title="Telegram"></a>
+                            <a target="_blank" href="https://www.facebook.com/soleh.muhamad" class="bi bi-tiktok" title="TikTok"></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box-container">
+                    <div class="box">
+                        <div class="info">
+                            <h3><i class="fas fa-map"></i> Alamat :</h3>
+                            <p>Jungkel, Rajeg</p>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="info">
+                            <h3><i class="fas fa-envelope"></i> Email :</h3>
+                            <p>solehudinz3692@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="info">
+                            <h3><i class="fas fa-phone"></i> No. HP :</h3>
+                            <p>+62 887 433 130 86</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kolom 2: Form Pesan -->
+            <div class="column form-column">
+                <hr class="divider">
+                <h2>Kirim saya pesan</h2>
+                <hr class="divider">
+                <form action="send_message.php" method="POST" class="contact-form">
+                    <input type="text" name="name" placeholder="Nama Anda" required>
+                    <input type="email" name="email" placeholder="Email Anda" required>
+                    <input type="text" name="subject" placeholder="Judul" required>
+                    <textarea name="message" placeholder="Pesan Anda" required></textarea>
+                    <button type="submit" class="btn">Kirim Pesan</button>
+                </form>
+            </div>
+
+            <!-- Kolom 3: Peta -->
+            <div class="column form-column">
+                <hr class="divider">
+                <h2>Lokasi kami</h2>
+                <hr class="divider">
+                <div class="map-container">
+                    <iframe
+                        width="100%"
+                        height="300"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15868.838416887245!2d106.532609!3d-6.1024512!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e41ff38cdee3d79%3A0xa8ebc179ed208332!2sWarung%20Emak%20Ati!5e0!3m2!1sid!2sid!4v1783157829397!5m2!1sid!2sid" referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <script src="assets/js/custom-contact.js"></script>
+</body>
+</html>
