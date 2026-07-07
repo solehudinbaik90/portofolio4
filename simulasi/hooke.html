@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../assets/logo/logo-file-1760448788.png">
+    <title>MSOLEH | PROYEK</title>
+    <link rel="stylesheet" href="../assets/fonts/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css3/custom-hooke.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="../index.html" id="homeLink"><i class="fas fa-home"></i> <span>beranda</span></a>
+        <a href="../about.html"><i class="fas fa-user"></i> <span>profil</span></a>
+        <a href="../portfolio.html"><i class="fas fa-briefcase"></i> <span>proyek</span></a>
+        <a href="../games.html"><i class="fa fa-gamepad"></i> <span>game</span></a>
+        <a href="../lesson.html"><i class="bi bi-camera-video-fill"></i> <span>tutor</span></a>
+        <a href="../contact.html"><i class="fas fa-address-book"></i> <span>kontak</span></a>
+    </nav>
+    <header>
+  <div class="logo">soleh</div>
+  <h1>🌀 Simulasi Hukum Hooke</h1>
+</header>
+
+<div class="main-container">
+
+  <!-- FORMULA -->
+  <div class="formula-section">
+    <div class="formula-title">Hukum Hooke</div>
+    <div class="formula-math">
+      <span class="f-F">F</span>
+      <span style="color:#aaa">=</span>
+      <span class="f-neg">−</span>
+      <span class="f-k">k</span>
+      <span class="f-x">x</span>
+    </div>
+    <div class="formula-desc">
+      <strong style="color:#ffd700">k</strong> = Konstanta pegas (N/m) &nbsp;|&nbsp;
+      <strong style="color:#ff9966">x</strong> = Simpangan / perubahan panjang (m) &nbsp;|&nbsp;
+      <strong style="color:#88ff88">F</strong> = Gaya pemulih pegas (N) &nbsp;|&nbsp;
+      <strong style="color:#cc88ff">Ep</strong> = ½kx² (Energi potensial pegas)
+    </div>
+  </div>
+
+  <!-- SIMULATION CANVAS -->
+  <div class="sim-section">
+    <div class="sim-title">🔬 Area Simulasi — Seret beban untuk mengubah simpangan</div>
+    <canvas id="sim" width="760" height="260"></canvas>
+    <div class="drag-hint">💡 Klik dan seret beban ke atas/bawah untuk mengubah simpangan secara visual</div>
+  </div>
+
+  <!-- BOTTOM -->
+  <div class="bottom-panel">
+
+    <!-- CONTROLS -->
+    <div class="slider-panel">
+      <div class="panel-heading">🎛️ Atur Parameter</div>
+
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('single')">🌀 Satu Pegas</button>
+        <button class="tab-btn" onclick="switchTab('series')">🔗 Seri</button>
+        <button class="tab-btn" onclick="switchTab('parallel')">⚡ Paralel</button>
+      </div>
+
+      <!-- Single Spring -->
+      <div id="tab-single" class="tab-content active">
+        <div class="slider-group">
+          <div class="slider-header">
+            <div class="slider-label">
+              <span class="slider-icon" style="color:#ffd700">🌀</span>
+              <span class="slider-name">Konstanta Pegas (k)</span>
+            </div>
+            <div class="slider-value" style="color:#ffd700" id="kVal">200 N/m</div>
+          </div>
+          <input type="range" class="range-k" id="kSlider" min="10" max="500" step="10" value="200">
+          <div class="range-labels"><span>10 N/m</span><span>500 N/m</span></div>
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-header">
+            <div class="slider-label">
+              <span class="slider-icon" style="color:#ff9966">📏</span>
+              <span class="slider-name">Simpangan (x)</span>
+            </div>
+            <div class="slider-value" style="color:#ff9966" id="xVal">+0.15 m</div>
+          </div>
+          <input type="range" class="range-x" id="xSlider" min="-40" max="40" step="1" value="15">
+          <div class="range-labels"><span>−0.40 m</span><span>+0.40 m</span></div>
+        </div>
+
+        <div class="info-box">
+          💡 <strong>Ingat:</strong> Tanda negatif pada F = −kx berarti gaya pegas <strong>selalu berlawanan arah</strong> dengan simpangan.<br>
+          Energi potensial pegas: <strong>Ep = ½kx²</strong> — selalu positif!
+        </div>
+      </div>
+
+      <!-- Series -->
+      <div id="tab-series" class="tab-content">
+        <div class="slider-group">
+          <div class="slider-header">
+            <div class="slider-label"><span class="slider-icon" style="color:#ffd700">🌀</span><span class="slider-name">k₁</span></div>
+            <div class="slider-value" style="color:#ffd700" id="k1Val">200 N/m</div>
+          </div>
+          <input type="range" class="range-k" id="k1Slider" min="10" max="500" step="10" value="200">
+        </div>
+        <div class="slider-group">
+          <div class="slider-header">
+            <div class="slider-label"><span class="slider-icon" style="color:#ff9966">🌀</span><span class="slider-name">k₂</span></div>
+            <div class="slider-value" style="color:#ff9966" id="k2Val">300 N/m</div>
+          </div>
+          <input type="range" class="range-x" id="k2Slider" min="10" max="500" step="10" value="300">
+        </div>
+        <div class="slider-group">
+          <div class="slider-header">
+            <div class="slider-label"><span class="slider-icon" style="color:#88ccff">📏</span><span class="slider-name">Simpangan total (x)</span></div>
+            <div class="slider-value" style="color:#88ccff" id="xSerVal">+0.15 m</div>
+          </div>
+          <input type="range" class="range-x" id="xSerSlider" min="1" max="40" step="1" value="15">
+        </div>
+        <div class="info-box">
+          💡 <strong>Seri:</strong> 1/k<sub>eff</sub> = 1/k₁ + 1/k₂<br>
+          Pegas seri lebih <strong>lemah</strong> dari masing-masing pegas.
+        </div>
+      </div>
+
+      <!-- Parallel -->
+      <div id="tab-parallel" class="tab-content">
+        <div class="slider-group">
+          <div class="slider-header">
+            <div class="slider-label"><span class="slider-icon" style="color:#ffd700">🌀</span><span class="slider-name">k₁</span></div>
+            <div class="slider-value" style="color:#ffd700" id="kp1Val">150 N/m</div>
+          </div>
+          <input type="range" class="range-k" id="kp1Slider" min="10" max="400" step="10" value="150">
+        </div>
+        <div class="slider-group">
+          <div class="slider-header">
+            <div class="slider-label"><span class="slider-icon" style="color:#ff9966">🌀</span><span class="slider-name">k₂</span></div>
+            <div class="slider-value" style="color:#ff9966" id="kp2Val">200 N/m</div>
+          </div>
+          <input type="range" class="range-x" id="kp2Slider" min="10" max="400" step="10" value="200">
+        </div>
+        <div class="slider-group">
+          <div class="slider-header">
+            <div class="slider-label"><span class="slider-icon" style="color:#88ccff">📏</span><span class="slider-name">Simpangan (x)</span></div>
+            <div class="slider-value" style="color:#88ccff" id="xParVal">+0.10 m</div>
+          </div>
+          <input type="range" class="range-x" id="xParSlider" min="1" max="40" step="1" value="10">
+        </div>
+        <div class="info-box">
+          💡 <strong>Paralel:</strong> k<sub>eff</sub> = k₁ + k₂<br>
+          Pegas paralel lebih <strong>kaku</strong> dari masing-masing pegas.
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULT -->
+    <div class="result-display">
+      <div class="result-label">🌀 Gaya Pegas</div>
+      <div class="result-value-big" id="forceVal">0.00</div>
+      <div class="result-unit" id="forceUnit">Newton (N)</div>
+      <div class="result-nature neutral" id="forceNature">— atur parameter —</div>
+
+      <div class="force-bar-wrap" style="width:100%; margin-top:8px;">
+        <div class="force-bar-label"><span>0</span><span id="maxForceLabel">max</span></div>
+        <div class="force-bar">
+          <div class="force-bar-fill fill-stretch" id="forceBar" style="width:0%"></div>
+        </div>
+      </div>
+
+      <div class="breakdown" id="breakdown">
+        <div>k &nbsp;&nbsp;= <span id="bd-k">200 N/m</span></div>
+        <div>x &nbsp;&nbsp;= <span id="bd-x">+0.15 m</span></div>
+        <div>F &nbsp;&nbsp;= <span id="bd-F">—</span></div>
+        <div style="border-top:1px solid rgba(255,255,255,0.1); margin-top:6px; padding-top:6px;">
+          Ep = ½kx² = <span id="bd-Ep">—</span>
+        </div>
+        <div id="bd-keff-row" style="display:none; border-top:1px solid rgba(255,255,255,0.1); margin-top:6px; padding-top:6px;">
+          k<sub>eff</sub> = <span id="bd-keff">—</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ENERGY VISUALIZATION -->
+  <div class="energy-panel">
+    <div class="panel-heading">⚡ Visualisasi Energi Pegas</div>
+    <div class="energy-bars">
+      <div class="e-bar-wrap">
+        <div class="e-bar-val" id="pe-val">0.00 J</div>
+        <div class="e-bar-outer">
+          <div class="e-bar-inner e-bar-pe" id="pe-bar" style="height:0%"></div>
+        </div>
+        <div class="e-bar-label">🟠 Ep = ½kx²<br><small style="color:#666">Potensial</small></div>
+      </div>
+      <div class="e-bar-wrap">
+        <div class="e-bar-val" id="f-val">0.00 N</div>
+        <div class="e-bar-outer">
+          <div class="e-bar-inner e-bar-ke" id="f-bar" style="height:0%"></div>
+        </div>
+        <div class="e-bar-label">🔵 |F| = k|x|<br><small style="color:#666">Gaya Pegas</small></div>
+      </div>
+      <div class="e-bar-wrap">
+        <div class="e-bar-val" id="keff-val">200 N/m</div>
+        <div class="e-bar-outer">
+          <div class="e-bar-inner e-bar-te" id="keff-bar" style="height:50%"></div>
+        </div>
+        <div class="e-bar-label">🟢 k<sub>eff</sub><br><small style="color:#666">Kekakuan</small></div>
+      </div>
+    </div>
+  </div>
+
+  <button class="reset-btn" onclick="resetAll()">🔄 Reset Semua</button>
+</div>
+     <script src="../assets/js2/custom-hooke.js"></script>
+</body>
+</html>

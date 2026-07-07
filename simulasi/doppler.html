@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../assets/logo/logo-file-1760448788.png">
+    <title>MSOLEH | PROYEK</title>
+    <link rel="stylesheet" href="../assets/fonts/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css3/custom-doppler.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="../index.html" id="homeLink"><i class="fas fa-home"></i> <span>beranda</span></a>
+        <a href="../about.html"><i class="fas fa-user"></i> <span>profil</span></a>
+        <a href="../portfolio.html"><i class="fas fa-briefcase"></i> <span>proyek</span></a>
+        <a href="../games.html"><i class="fa fa-gamepad"></i> <span>game</span></a>
+        <a href="../lesson.html"><i class="bi bi-camera-video-fill"></i> <span>tutor</span></a>
+        <a href="../contact.html"><i class="fas fa-address-book"></i> <span>kontak</span></a>
+    </nav>
+    <header>
+  <div class="logo">🔊<br>soleh</div>
+  <div>
+    <h1>🌊 Simulasi Efek Doppler</h1>
+    <p>Eksplorasi interaktif perubahan frekuensi gelombang suara akibat gerak relatif sumber & pendengar</p>
+  </div>
+</header>
+
+<div class="main-container">
+
+  <!-- FORMULA BAR -->
+  <div class="formula-bar">
+    <span class="formula-pill">
+      <span class="hl-f">f'</span> = <span class="hl-f0">f₀</span> × 
+      (<span class="hl-v">v</span> ± <span class="hl-v">v<sub>obs</sub></span>) / 
+      (<span class="hl-v">v</span> ∓ <span class="hl-vs">v<sub>s</sub></span>)
+    </span>
+    <span class="formula-pill">
+      <span class="hl-f">f'</span> &gt; <span class="hl-f0">f₀</span> : sumber mendekat
+    </span>
+    <span class="formula-pill">
+      <span class="hl-f">f'</span> &lt; <span class="hl-f0">f₀</span> : sumber menjauh
+    </span>
+    <span class="formula-pill">
+      Mach = <span class="hl-vs">v<sub>s</sub></span> / <span class="hl-v">v<sub>sound</sub></span>
+    </span>
+  </div>
+
+  <!-- SCENARIO TABS -->
+  <div class="scenario-bar">
+    <button class="scene-btn active" onclick="setScenario('free')">🚗 Bebas</button>
+    <button class="scene-btn" onclick="setScenario('approach')">➡️ Mendekat</button>
+    <button class="scene-btn" onclick="setScenario('recede')">⬅️ Menjauh</button>
+    <button class="scene-btn" onclick="setScenario('pass')">↔️ Melintas</button>
+    <button class="scene-btn" onclick="setScenario('sonic')">💥 Sonic Boom</button>
+    <button class="scene-btn" onclick="setScenario('obsMove')">🚶 Pejalan Bergerak</button>
+  </div>
+
+  <!-- SIM LAYOUT -->
+  <div class="sim-layout">
+
+    <!-- CANVAS AREA -->
+    <div class="canvas-wrap" id="canvasWrap">
+      <div class="canvas-title" id="sceneTitle">🚗 Mode Bebas — Atur parameter sesukamu</div>
+      <canvas id="dopplerCanvas" height="420"></canvas>
+      <div class="freq-display">
+        <div class="freq-box">
+          <div class="freq-lbl">f₀ (sumber)</div>
+          <div class="freq-val" id="fd-f0" style="color:#cc88ff">— Hz</div>
+        </div>
+        <div class="freq-box">
+          <div class="freq-lbl">f' (terdengar)</div>
+          <div class="freq-val" id="fd-fp" style="color:#ff9933">— Hz</div>
+        </div>
+        <div class="freq-box">
+          <div class="freq-lbl">Nomor Mach</div>
+          <div class="freq-val" id="fd-mach" style="color:#ffdd44">—</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+
+      <!-- CONTROLS -->
+      <div class="panel-card">
+        <div class="panel-title">🎛️ Parameter Simulasi</div>
+
+        <div class="slider-group">
+          <div class="sl-header">
+            <span class="sl-name">🔊 Frekuensi Sumber (f₀)</span>
+            <span class="sl-val" id="lbl-f0" style="color:#cc88ff">440 Hz</span>
+          </div>
+          <input type="range" class="range-freq" id="sl-f0" min="100" max="1200" step="10" value="440">
+        </div>
+
+        <div class="slider-group">
+          <div class="sl-header">
+            <span class="sl-name">🚗 Kecepatan Sumber (vₛ)</span>
+            <span class="sl-val" id="lbl-vs" style="color:#00aaff">80 m/s</span>
+          </div>
+          <input type="range" class="range-speed" id="sl-vs" min="0" max="500" step="5" value="80">
+        </div>
+
+        <div class="slider-group">
+          <div class="sl-header">
+            <span class="sl-name">🚶 Kecepatan Pengamat (vₒ)</span>
+            <span class="sl-val" id="lbl-vo" style="color:#44cc00">0 m/s</span>
+          </div>
+          <input type="range" class="range-obs" id="sl-vo" min="0" max="150" step="5" value="0">
+        </div>
+
+        <div class="slider-group">
+          <div class="sl-header">
+            <span class="sl-name">🌡️ Kecepatan Suara (v)</span>
+            <span class="sl-val" id="lbl-vsound" style="color:#ffaa00">340 m/s</span>
+          </div>
+          <input type="range" class="range-vsound" id="sl-vsound" min="200" max="500" step="10" value="340">
+        </div>
+
+        <label class="toggle-row">
+          <input type="checkbox" id="chkObsMove"> 🚶 Pengamat bergerak searah sumber
+        </label>
+        <label class="toggle-row">
+          <input type="checkbox" id="chkShowWaves" checked> 🌊 Tampilkan muka gelombang
+        </label>
+        <label class="toggle-row">
+          <input type="checkbox" id="chkShowMach" checked> 📐 Tampilkan garis Mach (jika > 1)
+        </label>
+      </div>
+
+      <!-- DOPPLER INDICATOR -->
+      <div class="panel-card">
+        <div class="panel-title">📡 Status Efek Doppler</div>
+        <div class="doppler-effect-bar effect-neutral" id="dopplerBadge">
+          ⚙️ Jalankan simulasi untuk melihat efek
+        </div>
+
+        <div class="obs-panel" style="margin-top:12px">
+          <div class="obs-box">
+            <div class="obs-lbl">λ depan (mendekat)</div>
+            <div class="obs-val" id="obs-lfront" style="color:#ff7755">— m</div>
+          </div>
+          <div class="obs-box">
+            <div class="obs-lbl">λ belakang (menjauh)</div>
+            <div class="obs-val" id="obs-lback" style="color:#7788ff">— m</div>
+          </div>
+          <div class="obs-box">
+            <div class="obs-lbl">f' mendekat</div>
+            <div class="obs-val" id="obs-ffront" style="color:#ff9933">— Hz</div>
+          </div>
+          <div class="obs-box">
+            <div class="obs-lbl">f' menjauh</div>
+            <div class="obs-val" id="obs-fback" style="color:#88aaff">— Hz</div>
+          </div>
+        </div>
+
+        <!-- Wave visualizer -->
+        <div style="margin-top:12px">
+          <div style="font-size:0.7rem; color:#778; text-transform:uppercase; margin-bottom:6px;">Visualisasi Gelombang Terdengar</div>
+          <canvas id="waveCanvas" width="290" height="60" style="width:100%;border-radius:10px;background:rgba(0,0,0,0.3)"></canvas>
+        </div>
+      </div>
+
+      <!-- INFO -->
+      <div class="info-box" id="infoBox">
+        💡 <strong>Efek Doppler:</strong> Ketika sumber suara bergerak <strong>mendekat</strong>, 
+        muka gelombang termampatkan → frekuensi naik (nada tinggi).<br>
+        Saat <strong>menjauh</strong>, gelombang merenggang → frekuensi turun (nada rendah).
+      </div>
+
+      <!-- BUTTONS -->
+      <div class="btn-row">
+        <button class="btn-play" id="btnPlay" onclick="togglePlay()">▶ Mulai</button>
+        <button class="btn-reset" onclick="resetSim()">⟳ Reset</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+     <script src="../assets/js2/custom-doppler.js"></script>
+</body>
+</html>

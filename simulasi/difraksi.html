@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../assets/logo/logo-file-1760448788.png">
+    <title>MSOLEH | PROYEK</title>
+    <link rel="stylesheet" href="../assets/fonts/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css3/custom-difraksi.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="../index.html" id="homeLink"><i class="fas fa-home"></i> <span>beranda</span></a>
+        <a href="../about.html"><i class="fas fa-user"></i> <span>profil</span></a>
+        <a href="../portfolio.html"><i class="fas fa-briefcase"></i> <span>proyek</span></a>
+        <a href="../games.html"><i class="fa fa-gamepad"></i> <span>game</span></a>
+        <a href="../lesson.html"><i class="bi bi-camera-video-fill"></i> <span>tutor</span></a>
+        <a href="../contact.html"><i class="fas fa-address-book"></i> <span>kontak</span></a>
+    </nav>
+    <header>
+  <div style="font-size:1.6rem;">🔬</div>
+  <h1>Simulasi Difraksi Cahaya</h1>
+  <span class="badge">Interaktif</span>
+</header>
+
+<div class="main-layout">
+
+  <!-- ══ PANEL KIRI ══ -->
+  <div class="controls">
+
+    <div>
+      <div class="section-title">Mode Simulasi</div>
+      <div class="mode-tabs">
+        <div class="mode-tab active" data-mode="single" onclick="setMode('single')">Celah<br>Tunggal</div>
+        <div class="mode-tab" data-mode="double" onclick="setMode('double')">Celah<br>Ganda</div>
+        <div class="mode-tab" data-mode="grating" onclick="setMode('grating')">Kisi<br>Difraksi</div>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <div class="section-title">Sumber Cahaya</div>
+
+      <div class="control-row">
+        <label>Panjang Gelombang <span id="wlVal">550 nm <span class="wl-indicator" id="wlDot"></span></span></label>
+        <div class="wavelength-bar"></div>
+        <input type="range" id="wavelength" min="380" max="750" value="550" oninput="updateAll()">
+      </div>
+
+      <div class="control-row">
+        <label>Intensitas <span id="ampVal">1.0</span></label>
+        <input type="range" id="amplitude" min="0.2" max="2.0" step="0.1" value="1.0" oninput="updateAll()">
+      </div>
+    </div>
+
+    <div class="control-group" id="slitControls">
+      <div class="section-title">Parameter Celah</div>
+
+      <div class="control-row">
+        <label>Lebar Celah (a) <span id="slitWVal">2.0 μm</span></label>
+        <input type="range" id="slitWidth" min="0.5" max="8" step="0.1" value="2.0" oninput="updateAll()">
+      </div>
+
+      <div class="control-row" id="sepControl">
+        <label>Jarak Celah (d) <span id="slitSepVal">4.0 μm</span></label>
+        <input type="range" id="slitSep" min="1" max="12" step="0.1" value="4.0" oninput="updateAll()">
+      </div>
+
+      <div class="control-row" id="numSlitsControl" style="display:none">
+        <label>Jumlah Celah (N) <span id="numSlitsVal">5</span></label>
+        <input type="range" id="numSlits" min="2" max="20" step="1" value="5" oninput="updateAll()">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <div class="section-title">Pengaturan Layar</div>
+
+      <div class="control-row">
+        <label>Jarak ke Layar (L) <span id="distVal">1.0 m</span></label>
+        <input type="range" id="screenDist" min="0.2" max="3.0" step="0.1" value="1.0" oninput="updateAll()">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <div class="section-title">Tampilan</div>
+      <div class="toggle-row">
+        <span>Tampilkan gelombang</span>
+        <div class="toggle on" id="toggleWave" onclick="toggleOption('wave')"></div>
+      </div>
+      <div class="toggle-row">
+        <span>Label orde</span>
+        <div class="toggle on" id="toggleLabels" onclick="toggleOption('labels')"></div>
+      </div>
+      <div class="toggle-row">
+        <span>Warna spektrum</span>
+        <div class="toggle on" id="toggleColor" onclick="toggleOption('color')"></div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-primary" style="flex:1" onclick="animate()">▶ Animasikan</button>
+      <button class="btn btn-secondary" onclick="stopAnimation()">⏹</button>
+    </div>
+    <button class="btn btn-secondary" onclick="resetAll()">⟳ Reset</button>
+
+  </div>
+
+  <!-- ══ AREA CANVAS ══ -->
+  <div class="canvas-area">
+    <div class="canvas-labels" id="canvasLabel">Celah Tunggal — Difraksi Fraunhofer</div>
+    <canvas id="mainCanvas"></canvas>
+
+    <div class="screen-container">
+      <div class="screen-label">LAYAR DIFRAKSI</div>
+      <canvas id="screenCanvas"></canvas>
+    </div>
+
+    <div class="intensity-label">GRAFIK INTENSITAS</div>
+    <canvas id="intensityCanvas"></canvas>
+  </div>
+
+  <!-- ══ PANEL KANAN ══ -->
+  <div class="info-panel">
+
+    <div>
+      <div class="section-title">Formula</div>
+      <div class="formula-box" id="formulaBox">
+        <div class="formula-title">Celah Tunggal</div>
+        <div class="formula">a·sin θ = mλ</div>
+        <div style="font-size:0.75rem; color:#8899bb; margin-top:6px;">
+          Minimum ke-m<br>
+          a = lebar celah<br>
+          λ = panjang gelombang
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-title">Hasil Perhitungan</div>
+      <div style="display:flex; flex-direction:column; gap:6px;" id="results">
+        <div class="result-item">
+          <span class="label">λ (nm)</span>
+          <span class="value" id="res-lambda">550</span>
+        </div>
+        <div class="result-item">
+          <span class="label">θ minimum 1°</span>
+          <span class="value" id="res-theta1">16.0°</span>
+        </div>
+        <div class="result-item">
+          <span class="label">Fringe width</span>
+          <span class="value" id="res-fringe">—</span>
+        </div>
+        <div class="result-item">
+          <span class="label">Resolusi (λ/Δλ)</span>
+          <span class="value" id="res-resolusi">—</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-title">Keterangan</div>
+      <div id="modeDesc" style="font-size:0.77rem; color:#7788bb; line-height:1.6; background:#0e0e20; padding:10px; border-radius:8px; border:1px solid #222250;">
+        Cahaya melewati celah tunggal. Gelombang Huygens dari setiap titik celah berinterferensi menghasilkan pola terang-gelap di layar.
+      </div>
+    </div>
+
+  </div>
+</div>
+     <script src="../assets/js2/custom-difraksi.js"></script>
+</body>
+</html>

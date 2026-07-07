@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../assets/logo/logo-file-1760448788.png">
+    <title>MSOLEH | PROYEK</title>
+    <link rel="stylesheet" href="../assets/fonts/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css3/custom-black.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="../index.html" id="homeLink"><i class="fas fa-home"></i> <span>beranda</span></a>
+        <a href="../about.html"><i class="fas fa-user"></i> <span>profil</span></a>
+        <a href="../portfolio.html"><i class="fas fa-briefcase"></i> <span>proyek</span></a>
+        <a href="../games.html"><i class="fa fa-gamepad"></i> <span>game</span></a>
+        <a href="../lesson.html"><i class="bi bi-camera-video-fill"></i> <span>tutor</span></a>
+        <a href="../contact.html"><i class="fas fa-address-book"></i> <span>kontak</span></a>
+    </nav>
+    <h1>🌡️ Simulasi Asas Black</h1>
+<p class="subtitle">Kalorimetri interaktif — Eksplorasi perpindahan kalor antara zat panas & dingin</p>
+
+<div class="formula-box">
+  Q<sub>lepas</sub> = Q<sub>terima</sub> &nbsp;→&nbsp; m₁·c₁·(T₁ − T<sub>eq</sub>) = m₂·c₂·(T<sub>eq</sub> − T₂)
+</div>
+
+<!-- Controls -->
+<div class="main-grid">
+  <div class="panel hot">
+    <h3>🔥 Benda Panas</h3>
+
+    <label>Massa (m₁)</label>
+    <input type="range" id="m1" min="50" max="1000" value="200" step="10">
+    <div class="val-display"><span id="m1v">200</span> gram</div>
+
+    <label>Suhu awal (T₁)</label>
+    <input type="range" id="T1" min="40" max="300" value="90" step="1">
+    <div class="val-display"><span id="T1v">90</span> °C</div>
+
+    <label>Jenis zat</label>
+    <select id="mat1">
+      <option value="4186">Air (4186 J/kg·°C)</option>
+      <option value="900" selected>Aluminium (900 J/kg·°C)</option>
+      <option value="385">Tembaga (385 J/kg·°C)</option>
+      <option value="500">Besi (500 J/kg·°C)</option>
+      <option value="840">Kaca (840 J/kg·°C)</option>
+      <option value="2090">Es (2090 J/kg·°C)</option>
+      <option value="130">Timbal (130 J/kg·°C)</option>
+    </select>
+  </div>
+
+  <div class="panel cold">
+    <h3>❄️ Benda Dingin</h3>
+
+    <label>Massa (m₂)</label>
+    <input type="range" id="m2" min="50" max="1000" value="300" step="10">
+    <div class="val-display"><span id="m2v">300</span> gram</div>
+
+    <label>Suhu awal (T₂)</label>
+    <input type="range" id="T2" min="0" max="100" value="20" step="1">
+    <div class="val-display"><span id="T2v">20</span> °C</div>
+
+    <label>Jenis zat</label>
+    <select id="mat2">
+      <option value="4186" selected>Air (4186 J/kg·°C)</option>
+      <option value="900">Aluminium (900 J/kg·°C)</option>
+      <option value="385">Tembaga (385 J/kg·°C)</option>
+      <option value="500">Besi (500 J/kg·°C)</option>
+      <option value="840">Kaca (840 J/kg·°C)</option>
+      <option value="2090">Es (2090 J/kg·°C)</option>
+      <option value="130">Timbal (130 J/kg·°C)</option>
+    </select>
+  </div>
+</div>
+
+<!-- Buttons -->
+<div class="btn-row">
+  <button id="btnSimulate">▶ Jalankan Simulasi</button>
+  <button id="btnReset">⟳ Reset</button>
+</div>
+
+<div id="statusBar">⚙️ Atur parameter lalu klik Jalankan Simulasi</div>
+
+<!-- Visualization -->
+<div class="viz-wrap">
+  <canvas id="mainCanvas" height="220"></canvas>
+</div>
+
+<!-- Results -->
+<div class="result-wrap">
+  <div class="result-grid">
+    <div class="result-card eq">
+      <div class="label">Suhu Kesetimbangan</div>
+      <div class="value" id="resTeq">—</div>
+    </div>
+    <div class="result-card hot-card">
+      <div class="label">Kalor Dilepas (Q₁)</div>
+      <div class="value" id="resQ1">—</div>
+    </div>
+    <div class="result-card cold-card">
+      <div class="label">Kalor Diterima (Q₂)</div>
+      <div class="value" id="resQ2">—</div>
+    </div>
+    <div class="result-card check">
+      <div class="label">Verifikasi Asas Black</div>
+      <div class="value" id="resCheck">—</div>
+    </div>
+  </div>
+
+  <!-- Thermometers -->
+  <div class="thermo-row" id="thermoRow">
+    <div class="thermo-item">
+      <div class="thermo-label">T₁ Awal</div>
+      <div class="thermo-outer"><div class="thermo-fill" id="th1" style="height:0%;background:#ff6b35"></div></div>
+      <div class="thermo-temp" id="th1lbl" style="color:#ff6b35">—</div>
+    </div>
+    <div class="thermo-item">
+      <div class="thermo-label">T₂ Awal</div>
+      <div class="thermo-outer"><div class="thermo-fill" id="th2" style="height:0%;background:#4fc3f7"></div></div>
+      <div class="thermo-temp" id="th2lbl" style="color:#4fc3f7">—</div>
+    </div>
+    <div class="thermo-item">
+      <div class="thermo-label">T Kesetimbangan</div>
+      <div class="thermo-outer"><div class="thermo-fill" id="theq" style="height:0%;background:#a8e063"></div></div>
+      <div class="thermo-temp" id="theqlbl" style="color:#a8e063">—</div>
+    </div>
+  </div>
+</div>
+
+<!-- Explanation -->
+<div class="explain-box" id="explainBox">
+  <b>📖 Asas Black</b> menyatakan bahwa kalor yang dilepas benda panas <b>sama dengan</b> kalor yang diterima benda dingin, asalkan sistem terisolasi sempurna.<br><br>
+  Gunakan slider untuk mengubah massa, suhu, dan jenis material — lalu amati bagaimana suhu kesetimbangan berubah!
+</div>
+     <script src="../assets/js2/custom-black.js"></script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../assets/logo/logo-file-1760448788.png">
+    <title>MSOLEH | PROYEK</title>
+    <link rel="stylesheet" href="../assets/fonts/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css3/custom-bernoulli.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="../index.html" id="homeLink"><i class="fas fa-home"></i> <span>beranda</span></a>
+        <a href="../about.html"><i class="fas fa-user"></i> <span>profil</span></a>
+        <a href="../portfolio.html"><i class="fas fa-briefcase"></i> <span>proyek</span></a>
+        <a href="../games.html"><i class="fa fa-gamepad"></i> <span>game</span></a>
+        <a href="../lesson.html"><i class="bi bi-camera-video-fill"></i> <span>tutor</span></a>
+        <a href="../contact.html"><i class="fas fa-address-book"></i> <span>kontak</span></a>
+    </nav>
+    <h1>🌊 Simulasi Persamaan Bernoulli</h1>
+<p class="subtitle">Eksplorasi hubungan tekanan, kecepatan, dan ketinggian fluida — interaktif &amp; visual</p>
+
+<div class="formula-box">
+  <span>P₁</span> + ½ρv₁² + ρgh₁ &nbsp;=&nbsp; <span>P₂</span> + ½ρv₂² + ρgh₂
+  &nbsp;&nbsp;|&nbsp;&nbsp; Kekekalan Energi Fluida
+</div>
+
+<!-- Mode tabs -->
+<div class="tabs">
+  <button class="tab active" onclick="setMode('pipe')">🔧 Pipa Bervariasi</button>
+  <button class="tab" onclick="setMode('venturi')">⚡ Venturi Meter</button>
+  <button class="tab" onclick="setMode('torricelli')">💧 Teorema Torricelli</button>
+</div>
+
+<!-- Canvas -->
+<canvas id="pipeCanvas" height="200"></canvas>
+<br/>
+
+<div class="btn-row">
+  <button class="btn-run" onclick="runSim()">▶ Jalankan Simulasi</button>
+  <button class="btn-reset" onclick="resetSim()">⟳ Reset</button>
+</div>
+
+<!-- Controls -->
+<div class="main-grid">
+  <!-- Titik 1 -->
+  <div class="panel">
+    <h2>📍 Titik 1 (Masuk)</h2>
+    <div class="control-group">
+      <label>Diameter pipa (d₁) <span class="val" id="lbl_d1">8 cm</span></label>
+      <input type="range" id="d1" min="2" max="16" step="0.5" value="8" oninput="updateLabels();drawPipe()">
+    </div>
+    <div class="control-group">
+      <label>Ketinggian (h₁) <span class="val" id="lbl_h1">0 m</span></label>
+      <input type="range" id="h1" min="0" max="10" step="0.5" value="0" oninput="updateLabels();drawPipe()">
+    </div>
+    <div class="control-group">
+      <label>Kecepatan (v₁) <span class="val" id="lbl_v1">2 m/s</span></label>
+      <input type="range" id="v1" min="0.5" max="20" step="0.5" value="2" oninput="updateLabels();syncContinuity();drawPipe()">
+    </div>
+    <div class="control-group">
+      <label>Tekanan masuk (P₁) <span class="val" id="lbl_p1">200 kPa</span></label>
+      <input type="range" id="p1" min="50" max="500" step="10" value="200" oninput="updateLabels()">
+    </div>
+  </div>
+
+  <!-- Titik 2 -->
+  <div class="panel">
+    <h2>📍 Titik 2 (Keluar)</h2>
+    <div class="control-group">
+      <label>Diameter pipa (d₂) <span class="val" id="lbl_d2">4 cm</span></label>
+      <input type="range" id="d2" min="2" max="16" step="0.5" value="4" oninput="updateLabels();syncContinuity();drawPipe()">
+    </div>
+    <div class="control-group">
+      <label>Ketinggian (h₂) <span class="val" id="lbl_h2">3 m</span></label>
+      <input type="range" id="h2" min="0" max="10" step="0.5" value="3" oninput="updateLabels();drawPipe()">
+    </div>
+    <div class="control-group">
+      <label>Kecepatan (v₂) <span class="val" id="lbl_v2">— m/s</span></label>
+      <input type="range" id="v2" min="0.5" max="20" step="0.5" value="8" oninput="updateLabels()" disabled style="opacity:0.4">
+    </div>
+    <div class="control-group" id="grp_rho">
+      <label>Massa jenis fluida (ρ) <span class="val" id="lbl_rho">1000 kg/m³</span></label>
+      <input type="range" id="rho" min="500" max="14000" step="100" value="1000" oninput="updateLabels()">
+    </div>
+  </div>
+</div>
+
+<!-- Results -->
+<div class="section-label">Hasil Perhitungan</div>
+<div class="results-grid">
+  <div class="result-card highlight">
+    <div class="label">P₁ (Tekanan Masuk)</div>
+    <div class="value" id="res_p1">—</div>
+    <div class="unit">kPa</div>
+  </div>
+  <div class="result-card highlight">
+    <div class="label">P₂ (Tekanan Keluar)</div>
+    <div class="value" id="res_p2">—</div>
+    <div class="unit">kPa</div>
+  </div>
+  <div class="result-card">
+    <div class="label">v₂ (Kecepatan Keluar)</div>
+    <div class="value" id="res_v2">—</div>
+    <div class="unit">m/s</div>
+  </div>
+  <div class="result-card">
+    <div class="label">½ρv₁² (Energi Kinetik 1)</div>
+    <div class="value" id="res_ek1">—</div>
+    <div class="unit">Pa</div>
+  </div>
+  <div class="result-card">
+    <div class="label">½ρv₂² (Energi Kinetik 2)</div>
+    <div class="value" id="res_ek2">—</div>
+    <div class="unit">Pa</div>
+  </div>
+  <div class="result-card" id="card_verify">
+    <div class="label">Verifikasi Bernoulli</div>
+    <div class="value" id="res_verify">—</div>
+    <div class="unit" id="res_verify_unit">—</div>
+  </div>
+</div>
+
+<!-- Pressure gauge -->
+<div class="section-label">Visualisasi Tekanan &amp; Energi</div>
+<div class="gauge-row" id="gaugeRow">
+  <div class="gauge-item">
+    <div class="gauge-bar-wrap"><div class="gauge-bar" id="bar_p1" style="height:0%"></div></div>
+    <div class="gauge-label">Tekanan P₁</div>
+    <div class="gauge-value" id="gval_p1">—</div>
+  </div>
+  <div class="gauge-item">
+    <div class="gauge-bar-wrap"><div class="gauge-bar" id="bar_ek1" style="height:0%;background:linear-gradient(180deg,#ff9800,#e65100)"></div></div>
+    <div class="gauge-label">½ρv₁²</div>
+    <div class="gauge-value" id="gval_ek1">—</div>
+  </div>
+  <div class="gauge-item">
+    <div class="gauge-bar-wrap"><div class="gauge-bar" id="bar_pe1" style="height:0%;background:linear-gradient(180deg,#69f0ae,#00695c)"></div></div>
+    <div class="gauge-label">ρgh₁</div>
+    <div class="gauge-value" id="gval_pe1">—</div>
+  </div>
+  <div class="gauge-item">
+    <div class="gauge-bar-wrap"><div class="gauge-bar" id="bar_p2" style="height:0%"></div></div>
+    <div class="gauge-label">Tekanan P₂</div>
+    <div class="gauge-value" id="gval_p2">—</div>
+  </div>
+  <div class="gauge-item">
+    <div class="gauge-bar-wrap"><div class="gauge-bar" id="bar_ek2" style="height:0%;background:linear-gradient(180deg,#ff9800,#e65100)"></div></div>
+    <div class="gauge-label">½ρv₂²</div>
+    <div class="gauge-value" id="gval_ek2">—</div>
+  </div>
+  <div class="gauge-item">
+    <div class="gauge-bar-wrap"><div class="gauge-bar" id="bar_pe2" style="height:0%;background:linear-gradient(180deg,#69f0ae,#00695c)"></div></div>
+    <div class="gauge-label">ρgh₂</div>
+    <div class="gauge-value" id="gval_pe2">—</div>
+  </div>
+</div>
+
+<br/>
+<div class="info-box" id="infoBox">
+  ⚙️ Atur parameter pada panel di atas, lalu klik <strong>▶ Jalankan Simulasi</strong> untuk melihat hasilnya.
+  <br/><br/>
+  <strong>Asumsi:</strong> Fluida ideal (tak viskos, tak kompresibel), aliran steady, berlaku persamaan kontinuitas A₁v₁ = A₂v₂.
+</div>
+     <script src="../assets/js2/custom-bernoulli.js"></script>
+</body>
+</html>

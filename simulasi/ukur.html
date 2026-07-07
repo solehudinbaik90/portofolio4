@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../assets/logo/logo-file-1760448788.png">
+    <title>MSOLEH | PROYEK</title>
+    <link rel="stylesheet" href="../assets/fonts/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css3/custom-ukur.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="../index.html" id="homeLink"><i class="fas fa-home"></i> <span>beranda</span></a>
+        <a href="../about.html"><i class="fas fa-user"></i> <span>profil</span></a>
+        <a href="../portfolio.html"><i class="fas fa-briefcase"></i> <span>proyek</span></a>
+        <a href="../games.html"><i class="fa fa-gamepad"></i> <span>game</span></a>
+        <a href="../lesson.html"><i class="bi bi-camera-video-fill"></i> <span>tutor</span></a>
+        <a href="../contact.html"><i class="fas fa-address-book"></i> <span>kontak</span></a>
+    </nav>
+    <header>
+  <h1>🔬 Simulasi Alat Ukur Panjang</h1>
+  <p>Mistar · Jangka Sorong · Mikrometer — Interaktif &amp; Edukatif</p>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="showTab('mistar')">📏 Mistar</button>
+  <button class="tab-btn" onclick="showTab('jangka')">🔧 Jangka Sorong</button>
+  <button class="tab-btn" onclick="showTab('mikro')">🔩 Mikrometer</button>
+</div>
+
+<!-- ==================== MISTAR ==================== -->
+<div id="tab-mistar" class="panel active">
+
+  <div class="card">
+    <h2>📏 Mistar (Penggaris)</h2>
+    <div class="control-row">
+      <label>Panjang benda</label>
+      <input type="range" id="mistar-len" min="1" max="30" step="0.1" value="12.3"
+             oninput="drawMistar()">
+      <span class="val-badge" id="mistar-len-val">12.3 cm</span>
+    </div>
+    <canvas id="canvas-mistar" height="140"></canvas>
+    <div class="result-box">
+      <div class="result-item">
+        <div class="label">Hasil Pengukuran</div>
+        <div class="value" id="mistar-result">12.3 cm</div>
+      </div>
+      <div class="result-item">
+        <div class="label">Konversi mm</div>
+        <div class="value" id="mistar-mm">123.0 mm</div>
+      </div>
+      <div class="result-item">
+        <div class="label">Ketelitian</div>
+        <div class="value" style="color:#a78bfa">1 mm</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>📖 Cara Membaca Mistar</h2>
+    <ul class="steps">
+      <li>Letakkan ujung benda tepat di angka <strong>0</strong> pada mistar.</li>
+      <li>Baca angka skala pada ujung lain benda secara <strong>tegak lurus</strong> (hindari parallax).</li>
+      <li>Catat nilai dalam <strong>cm</strong> atau <strong>mm</strong>.</li>
+      <li>Ketidakpastian pengukuran = <strong>½ × skala terkecil = 0.5 mm</strong>.</li>
+    </ul>
+    <div class="info-grid">
+      <div class="info-item">
+        <strong>Skala Terkecil</strong>1 mm = 0.1 cm
+      </div>
+      <div class="info-item">
+        <strong>Ketelitian</strong>0.5 mm (½ skala terkecil)
+      </div>
+      <div class="info-item">
+        <strong>Rentang Ukur</strong>0 – 30 cm (umumnya)
+      </div>
+    </div>
+    <div class="badge-row">
+      <span class="badge badge-blue">Ketelitian: 1 mm</span>
+      <span class="badge badge-purple">Paralaks: hindari</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🧪 Kuis Mistar</h2>
+    <button class="quiz-btn" onclick="genMistarQuiz()">🎲 Soal Baru</button>
+    <div class="quiz-area show" id="quiz-mistar">
+      <canvas id="canvas-mistar-quiz" height="100"></canvas>
+      <p id="quiz-mistar-q" style="margin-top:10px"></p>
+      <input type="number" class="quiz-input" id="quiz-mistar-ans" placeholder="cm" step="0.1">
+      <button class="check-btn" onclick="checkMistar()">Cek</button>
+      <div class="feedback" id="quiz-mistar-fb"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== JANGKA SORONG ==================== -->
+<div id="tab-jangka" class="panel">
+
+  <div class="card">
+    <h2>🔧 Jangka Sorong (Vernier Caliper)</h2>
+    <div class="control-row">
+      <label>Panjang benda</label>
+      <input type="range" id="js-val" min="0" max="150" step="0.1" value="32.4"
+             oninput="drawJangka()">
+      <span class="val-badge" id="js-val-disp">32.4 mm</span>
+    </div>
+    <canvas id="canvas-jangka" height="200"></canvas>
+    <div class="result-box">
+      <div class="result-item">
+        <div class="label">Skala Utama</div>
+        <div class="value" id="js-main">32 mm</div>
+      </div>
+      <div class="result-item">
+        <div class="label">Skala Nonius</div>
+        <div class="value" id="js-nonius">0.4 mm</div>
+      </div>
+      <div class="result-item">
+        <div class="label">Hasil Akhir</div>
+        <div class="value" id="js-result">32.4 mm</div>
+      </div>
+      <div class="result-item">
+        <div class="label">Ketelitian</div>
+        <div class="value" style="color:#a78bfa">0.1 mm</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>📖 Cara Membaca Jangka Sorong</h2>
+    <ul class="steps">
+      <li>Baca <strong>skala utama</strong> — angka bulat terbesar di sebelah kiri garis 0 nonius.</li>
+      <li>Lihat garis nonius yang paling <strong>berimpit/sejajar</strong> dengan garis skala utama.</li>
+      <li>Kalikan nomor garis nonius tersebut dengan <strong>0.1 mm</strong> (ketelitian).</li>
+      <li>Jumlahkan: <em>Hasil = Skala Utama + (n × 0.1 mm)</em>.</li>
+    </ul>
+    <div class="info-grid">
+      <div class="info-item">
+        <strong>Ketelitian Umum</strong>0.1 mm (10 divisi nonius)
+      </div>
+      <div class="info-item">
+        <strong>Ketelitian Tinggi</strong>0.05 mm atau 0.02 mm
+      </div>
+      <div class="info-item">
+        <strong>Rentang Ukur</strong>0 – 150 mm (6 inci)
+      </div>
+    </div>
+    <div class="badge-row">
+      <span class="badge badge-blue">Ketelitian: 0.1 mm</span>
+      <span class="badge badge-gold">Nonius: 10 divisi</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🧪 Kuis Jangka Sorong</h2>
+    <button class="quiz-btn" onclick="genJangkaQuiz()">🎲 Soal Baru</button>
+    <div class="quiz-area show" id="quiz-jangka">
+      <canvas id="canvas-jangka-quiz" height="180"></canvas>
+      <p id="quiz-jangka-q" style="margin-top:10px"></p>
+      <input type="number" class="quiz-input" id="quiz-jangka-ans" placeholder="mm" step="0.1">
+      <button class="check-btn" onclick="checkJangka()">Cek</button>
+      <div class="feedback" id="quiz-jangka-fb"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== MIKROMETER ==================== -->
+<div id="tab-mikro" class="panel">
+
+  <div class="card">
+    <h2>🔩 Mikrometer Sekrup</h2>
+    <div class="control-row">
+      <label>Nilai pengukuran</label>
+      <input type="range" id="mik-val" min="0" max="25" step="0.01" value="7.38"
+             oninput="drawMikro()">
+      <span class="val-badge" id="mik-val-disp">7.38 mm</span>
+    </div>
+    <canvas id="canvas-mikro" height="200"></canvas>
+    <div class="result-box">
+      <div class="result-item">
+        <div class="label">Skala Utama</div>
+        <div class="value" id="mik-main">7.5 mm</div>
+      </div>
+      <div class="result-item">
+        <div class="label">Skala Putar</div>
+        <div class="value" id="mik-thimble">38 div</div>
+      </div>
+      <div class="result-item">
+        <div class="label">Hasil Akhir</div>
+        <div class="value" id="mik-result">7.38 mm</div>
+      </div>
+      <div class="result-item">
+        <div class="label">Ketelitian</div>
+        <div class="value" style="color:#a78bfa">0.01 mm</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>📖 Cara Membaca Mikrometer</h2>
+    <ul class="steps">
+      <li>Baca <strong>skala utama (sleeve)</strong> — skala di atas garis: bilangan bulat mm; skala di bawah garis: + 0.5 mm jika terlihat.</li>
+      <li>Baca angka pada <strong>skala putar (thimble)</strong> yang berimpit dengan garis tengah sleeve.</li>
+      <li>Kalikan angka thimble × <strong>0.01 mm</strong>.</li>
+      <li>Jumlahkan: <em>Hasil = Skala Utama + (Skala Thimble × 0.01 mm)</em>.</li>
+    </ul>
+    <div class="info-grid">
+      <div class="info-item">
+        <strong>Ketelitian</strong>0.01 mm (10 µm)
+      </div>
+      <div class="info-item">
+        <strong>Pitch Ulir</strong>0.5 mm per putaran
+      </div>
+      <div class="info-item">
+        <strong>Rentang Ukur</strong>0 – 25 mm (std)
+      </div>
+    </div>
+    <div class="badge-row">
+      <span class="badge badge-blue">Ketelitian: 0.01 mm</span>
+      <span class="badge badge-gold">Thimble: 50 divisi</span>
+      <span class="badge badge-purple">Pitch: 0.5 mm</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🧪 Kuis Mikrometer</h2>
+    <button class="quiz-btn" onclick="genMikroQuiz()">🎲 Soal Baru</button>
+    <div class="quiz-area show" id="quiz-mikro">
+      <canvas id="canvas-mikro-quiz" height="180"></canvas>
+      <p id="quiz-mikro-q" style="margin-top:10px"></p>
+      <input type="number" class="quiz-input" id="quiz-mikro-ans" placeholder="mm" step="0.01">
+      <button class="check-btn" onclick="checkMikro()">Cek</button>
+      <div class="feedback" id="quiz-mikro-fb"></div>
+    </div>
+  </div>
+</div>
+     <script src="../assets/js2/custom-ukur.js"></script>
+</body>
+</html>

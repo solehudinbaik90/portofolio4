@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../assets/logo/logo-file-1760448788.png">
+    <title>MSOLEH | PROYEK</title>
+    <link rel="stylesheet" href="../assets/fonts/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css3/custom-test.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="../index.html" id="homeLink"><i class="fas fa-home"></i> <span>beranda</span></a>
+        <a href="../about.html"><i class="fas fa-user"></i> <span>profil</span></a>
+        <a href="../portfolio.html"><i class="fas fa-briefcase"></i> <span>proyek</span></a>
+        <a href="../games.html"><i class="fa fa-gamepad"></i> <span>game</span></a>
+        <a href="../lesson.html"><i class="bi bi-camera-video-fill"></i> <span>tutor</span></a>
+        <a href="../contact.html"><i class="fas fa-address-book"></i> <span>kontak</span></a>
+    </nav>
+    <!-- ══════════════ INTRO ══════════════ -->
+<div id="intro-screen">
+  <div class="intro-card">
+    <div class="icon">⚛️</div>
+    <h1>Tes Fisika SMA</h1>
+    <p class="subtitle">Ujian Pilihan Ganda · 50 Soal · 120 Menit</p>
+
+    <div class="info-grid">
+      <div class="info-item"><span>Jumlah Soal</span><strong>50 Soal</strong></div>
+      <div class="info-item"><span>Durasi</span><strong>120 Menit</strong></div>
+      <div class="info-item"><span>Nilai Lulus</span><strong>≥ 65</strong></div>
+      <div class="info-item"><span>Jenis Soal</span><strong>Pilihan Ganda</strong></div>
+    </div>
+
+    <input id="name-input" type="text" placeholder="Masukkan nama lengkap kamu…" maxlength="60" autocomplete="off" />
+    <button class="btn-start" onclick="startTest()">Mulai Tes →</button>
+  </div>
+</div>
+
+<!-- ══════════════ TES ══════════════ -->
+<div id="test-screen">
+  <div class="test-header">
+    <div class="header-left">
+      <span class="test-title">⚛️ Tes Fisika SMA</span>
+      <span class="test-name" id="display-name"></span>
+    </div>
+    <div class="header-right">
+      <span id="question-counter">Soal 1 / 50</span>
+      <div id="timer">120:00</div>
+    </div>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progress-bar"></div></div>
+
+  <div style="max-width:860px;margin:0 auto;padding:0.75rem 1rem 0;">
+
+    <!-- Navigator -->
+    <div class="question-nav">
+      <h3>📋 Navigasi Soal</h3>
+      <div class="nav-grid" id="nav-grid"></div>
+    </div>
+
+    <!-- Pertanyaan -->
+    <div class="question-block" id="question-block"></div>
+
+    <!-- Navigasi bawah -->
+    <div class="nav-row">
+      <button class="btn-nav" id="btn-prev" onclick="goTo(currentQ - 1)">← Sebelumnya</button>
+      <button class="btn-submit" onclick="openConfirm()">✔ Selesai &amp; Kumpulkan</button>
+      <button class="btn-nav" id="btn-next" onclick="goTo(currentQ + 1)">Selanjutnya →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ HASIL ══════════════ -->
+<div id="result-screen">
+  <div class="result-card">
+    <div class="result-icon" id="result-icon"></div>
+    <p class="result-name" id="result-name"></p>
+    <div class="result-score" id="result-score"></div>
+    <div class="result-badge" id="result-badge"></div>
+    <div class="result-stats">
+      <div class="stat-item"><div class="stat-val" id="stat-benar">0</div><div class="stat-lbl">Benar</div></div>
+      <div class="stat-item"><div class="stat-val" id="stat-salah">0</div><div class="stat-lbl">Salah</div></div>
+      <div class="stat-item"><div class="stat-val" id="stat-kosong">0</div><div class="stat-lbl">Kosong</div></div>
+    </div>
+    <p class="result-msg" id="result-msg"></p>
+    <button class="btn-retry" onclick="retryTest()">🔄 Ulangi Tes</button>
+  </div>
+</div>
+
+<!-- ══════════════ MODAL ══════════════ -->
+<div id="confirm-modal">
+  <div class="modal-box">
+    <h2>Kumpulkan Jawaban?</h2>
+    <p id="modal-unanswered"></p>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeConfirm()">Kembali</button>
+      <button class="btn-confirm" onclick="submitTest()">Ya, Kumpulkan</button>
+    </div>
+  </div>
+</div>
+    <script src="../assets/js2/custom-test.js"></script>
+</body>
+</html>

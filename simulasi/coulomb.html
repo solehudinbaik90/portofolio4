@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../assets/logo/logo-file-1760448788.png">
+    <title>MSOLEH | PROYEK</title>
+    <link rel="stylesheet" href="../assets/fonts/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css3/custom-coulomb.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="../index.html" id="homeLink"><i class="fas fa-home"></i> <span>beranda</span></a>
+        <a href="../about.html"><i class="fas fa-user"></i> <span>profil</span></a>
+        <a href="../portfolio.html"><i class="fas fa-briefcase"></i> <span>proyek</span></a>
+        <a href="../games.html"><i class="fa fa-gamepad"></i> <span>game</span></a>
+        <a href="../lesson.html"><i class="bi bi-camera-video-fill"></i> <span>tutor</span></a>
+        <a href="../contact.html"><i class="fas fa-address-book"></i> <span>kontak</span></a>
+    </nav>
+    <header>
+  <div class="logo">soleh</div>
+  <h1>⚡ Simulasi Hukum Coulomb</h1>
+</header>
+
+<div class="main-container">
+
+  <!-- FORMULA -->
+  <div class="formula-section">
+    <div class="formula-title">Hukum Coulomb</div>
+    <div class="formula-math">
+      <span class="f-F">F</span>
+      <span style="color:#aaa">=</span>
+      <span class="f-k">k</span>
+      <span style="color:#aaa">×</span>
+      <span style="display:inline-flex; flex-direction:column; align-items:center; gap:2px;">
+        <span style="border-bottom: 2px solid #aaa; padding: 0 6px;">
+          <span class="f-q">|q₁|</span>
+          <span style="color:#aaa; font-size:1.4rem; font-style:normal; margin: 0 4px;">×</span>
+          <span class="f-q">|q₂|</span>
+        </span>
+        <span class="f-r">r²</span>
+      </span>
+    </div>
+    <div class="formula-desc">
+      <strong style="color:#ffd700">k</strong> = 8.99 × 10⁹ N·m²/C² &nbsp;|&nbsp;
+      <strong style="color:#ff6b6b">q₁, q₂</strong> = Muatan listrik (C) &nbsp;|&nbsp;
+      <strong style="color:#6acef5">r</strong> = Jarak antar muatan (m) &nbsp;|&nbsp;
+      <strong style="color:#88ff88">F</strong> = Gaya Coulomb (N)
+    </div>
+  </div>
+
+  <!-- SIMULATION -->
+  <div class="sim-section">
+    <div class="sim-title">🔬 Area Simulasi — Seret muatan untuk memindahkan</div>
+    <div class="sim-canvas-wrapper">
+      <canvas id="sim" width="760" height="220"></canvas>
+    </div>
+    <div class="drag-hint">💡 Klik dan seret salah satu muatan untuk mengubah jarak secara visual</div>
+  </div>
+
+  <!-- BOTTOM -->
+  <div class="bottom-panel">
+
+    <!-- SLIDERS -->
+    <div class="slider-panel">
+      <div class="panel-heading">🎛️ Atur Parameter</div>
+
+      <!-- q1 -->
+      <div class="slider-group">
+        <div class="slider-header">
+          <div class="slider-label">
+            <div class="charge-dot" id="dot1" style="background:#ff4444">+</div>
+            <span class="slider-name">Muatan q₁</span>
+          </div>
+          <div class="slider-value" style="color:#ff7777" id="q1Val">+2.0 μC</div>
+        </div>
+        <input type="range" class="range-q1" id="q1Slider" min="1" max="10" step="0.1" value="2">
+        <div class="sign-btns">
+          <button class="sign-btn pos active" id="q1pos" onclick="setSign(1,'pos')">⊕ Positif</button>
+          <button class="sign-btn neg"        id="q1neg" onclick="setSign(1,'neg')">⊖ Negatif</button>
+        </div>
+      </div>
+
+      <!-- q2 -->
+      <div class="slider-group">
+        <div class="slider-header">
+          <div class="slider-label">
+            <div class="charge-dot" id="dot2" style="background:#4488ff">−</div>
+            <span class="slider-name">Muatan q₂</span>
+          </div>
+          <div class="slider-value" style="color:#7799ff" id="q2Val">−3.0 μC</div>
+        </div>
+        <input type="range" class="range-q2" id="q2Slider" min="1" max="10" step="0.1" value="3">
+        <div class="sign-btns">
+          <button class="sign-btn pos"        id="q2pos" onclick="setSign(2,'pos')">⊕ Positif</button>
+          <button class="sign-btn neg active"  id="q2neg" onclick="setSign(2,'neg')">⊖ Negatif</button>
+        </div>
+      </div>
+
+      <!-- distance -->
+      <div class="slider-group">
+        <div class="slider-header">
+          <div class="slider-label">
+            <span style="font-size:1.3rem; color:#6acef5; font-family:'Times New Roman'; font-style:italic">r</span>
+            <span class="slider-name">Jarak</span>
+          </div>
+          <div class="slider-value" style="color:#6acef5" id="rVal">0.30 m</div>
+        </div>
+        <input type="range" class="range-dist" id="rSlider" min="5" max="90" step="1" value="30">
+        <div style="display:flex; justify-content:space-between; font-size:0.72rem; color:#556; margin-top:4px;">
+          <span>0.05 m</span><span>0.90 m</span>
+        </div>
+      </div>
+
+      <div class="info-box">
+        💡 <strong>Ingat:</strong> Muatan <strong>sejenis tolak-menolak</strong>, muatan <strong>berlawanan tarik-menarik</strong>.<br>
+        Gaya berbanding <strong>terbalik kuadrat jarak</strong> — semakin dekat, gaya semakin besar!
+      </div>
+    </div>
+
+    <!-- FORCE RESULT -->
+    <div class="force-display">
+      <div class="force-label">⚡ Gaya Coulomb</div>
+      <div class="force-value-big" id="forceVal">0.00</div>
+      <div class="force-unit">Newton (N)</div>
+      <div class="force-nature zero" id="forceNature">— pilih muatan —</div>
+      <div class="force-bar">
+        <div class="force-bar-fill fill-attract" id="forceBar" style="width:0%"></div>
+      </div>
+      <div class="force-breakdown" id="breakdown">
+        <div>k &nbsp;= <span>8.99 × 10⁹ N·m²/C²</span></div>
+        <div>q₁ = <span id="bd1">+2.0 μC</span></div>
+        <div>q₂ = <span id="bd2">−3.0 μC</span></div>
+        <div>r &nbsp;= <span id="bdr">0.30 m</span></div>
+        <div>r² = <span id="bdr2">0.09 m²</span></div>
+        <div>F &nbsp;= <span id="bdF">— N</span></div>
+      </div>
+    </div>
+  </div>
+
+  <button class="reset-btn" onclick="resetAll()">🔄 Reset Semua</button>
+</div>
+     <script src="../assets/js2/custom-coulomb.js"></script>
+</body>
+</html>

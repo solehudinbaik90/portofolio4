@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../assets/logo/logo-file-1760448788.png">
+    <title>MSOLEH | PROYEK</title>
+    <link rel="stylesheet" href="../assets/fonts/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css3/custom-momentum.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="../index.html" id="homeLink"><i class="fas fa-home"></i> <span>beranda</span></a>
+        <a href="../about.html"><i class="fas fa-user"></i> <span>profil</span></a>
+        <a href="../portfolio.html"><i class="fas fa-briefcase"></i> <span>proyek</span></a>
+        <a href="../games.html"><i class="fa fa-gamepad"></i> <span>game</span></a>
+        <a href="../lesson.html"><i class="bi bi-camera-video-fill"></i> <span>tutor</span></a>
+        <a href="../contact.html"><i class="fas fa-address-book"></i> <span>kontak</span></a>
+    </nav>
+    <header>
+  <div class="icon">💥</div>
+  <div>
+    <h1>Simulasi Momentum & Impuls</h1>
+    <p>Fisika SMA/Kuliah · Tumbukan 1D &amp; 2D Interaktif</p>
+  </div>
+  <div class="badge">⚡ soleh </div>
+  </header>
+
+<div class="main-layout">
+
+  <!-- ═══════════════════════════════ LEFT PANEL ═══════════════════════════════ -->
+  <aside class="panel-left">
+
+    <div>
+      <div class="section-title">Mode Tumbukan</div>
+      <div class="mode-tabs">
+        <button class="mode-tab active" onclick="setMode('elastic')">Elastis</button>
+        <button class="mode-tab" onclick="setMode('partial')">Sebagian</button>
+        <button class="mode-tab" onclick="setMode('inelastic')">Tak Elastis</button>
+      </div>
+    </div>
+
+    <!-- Ball 1 -->
+    <div>
+      <div class="section-title">Bola 1 (Merah)</div>
+      <div class="ball-card b1">
+        <div class="ball-header">
+          <div class="ball-dot"></div>
+          <span class="ball-label">Bola A</span>
+          <span class="momentum-badge" id="p1-badge">p = 0.0 kg·m/s</span>
+        </div>
+        <div class="slider-row">
+          <label>Massa m₁ <span id="m1-val">2.0 kg</span></label>
+          <input type="range" id="m1" min="0.5" max="10" step="0.5" value="2.0" oninput="updateSlider('m1')">
+        </div>
+        <div class="slider-row">
+          <label>Kecepatan v₁ <span id="v1-val">+5.0 m/s →</span></label>
+          <input type="range" id="v1" min="-15" max="15" step="0.5" value="5" oninput="updateSlider('v1')">
+        </div>
+      </div>
+    </div>
+
+    <!-- Ball 2 -->
+    <div>
+      <div class="section-title">Bola 2 (Biru)</div>
+      <div class="ball-card b2">
+        <div class="ball-header">
+          <div class="ball-dot b2"></div>
+          <span class="ball-label">Bola B</span>
+          <span class="momentum-badge" id="p2-badge">p = 0.0 kg·m/s</span>
+        </div>
+        <div class="slider-row">
+          <label>Massa m₂ <span id="m2-val">3.0 kg</span></label>
+          <input type="range" id="m2" min="0.5" max="10" step="0.5" value="3.0" oninput="updateSlider('m2')">
+        </div>
+        <div class="slider-row">
+          <label>Kecepatan v₂ <span id="v2-val">-3.0 m/s ←</span></label>
+          <input type="range" id="v2" min="-15" max="15" step="0.5" value="-3" oninput="updateSlider('v2')">
+        </div>
+      </div>
+    </div>
+
+    <!-- Elastisitas -->
+    <div>
+      <div class="section-title">Koefisien Restitusi (e)</div>
+      <div class="elasticity-wrap">
+        <div class="slider-row">
+          <label>e = <span id="e-val">1.00</span></label>
+          <input type="range" id="e-coeff" min="0" max="1" step="0.05" value="1.0" oninput="updateElasticity()">
+        </div>
+        <div class="elasticity-labels">
+          <span>0 · Sempurna Tak Elastis</span>
+          <span>1 · Sempurna Elastis</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div>
+      <div class="section-title">Kontrol</div>
+      <div class="btn-row" style="margin-bottom:8px">
+        <button class="btn btn-play"  id="btn-play"  onclick="startSim()">▶ Mulai</button>
+        <button class="btn btn-pause" id="btn-pause" onclick="pauseSim()" disabled>⏸ Jeda</button>
+        <button class="btn btn-reset" onclick="resetSim()">↺ Reset</button>
+      </div>
+      <div class="speed-row">
+        <span class="speed-label">Kecepatan:</span>
+        <button class="speed-btn" onclick="setSpeed(.25)">¼×</button>
+        <button class="speed-btn" onclick="setSpeed(.5)">½×</button>
+        <button class="speed-btn active" onclick="setSpeed(1)">1×</button>
+        <button class="speed-btn" onclick="setSpeed(2)">2×</button>
+        <button class="speed-btn" onclick="setSpeed(4)">4×</button>
+      </div>
+    </div>
+
+    <!-- Options -->
+    <div>
+      <div class="section-title">Tampilan</div>
+      <label style="display:flex;align-items:center;gap:8px;font-size:.78rem;cursor:pointer;margin-bottom:6px">
+        <input type="checkbox" id="show-vectors" checked onchange="render()"> Vektor Kecepatan
+      </label>
+      <label style="display:flex;align-items:center;gap:8px;font-size:.78rem;cursor:pointer;margin-bottom:6px">
+        <input type="checkbox" id="show-momentum" checked onchange="render()"> Vektor Momentum
+      </label>
+      <label style="display:flex;align-items:center;gap:8px;font-size:.78rem;cursor:pointer">
+        <input type="checkbox" id="show-trail" onchange="render()"> Jejak Gerak
+      </label>
+    </div>
+
+  </aside>
+
+  <!-- ═══════════════════════════════ CENTER ═══════════════════════════════ -->
+  <section class="canvas-area">
+
+    <div class="canvas-wrap">
+      <canvas id="simCanvas"></canvas>
+      <div class="canvas-info" id="canvas-info">
+        t = 0.00 s &nbsp;|&nbsp; Belum dimulai
+      </div>
+      <div class="collision-flash" id="flash"></div>
+    </div>
+
+    <div class="charts-wrap">
+      <div class="chart-panel">
+        <div class="chart-title">📊 Grafik <span>Momentum</span> vs Waktu</div>
+        <canvas class="chart" id="chart-momentum"></canvas>
+      </div>
+      <div class="chart-panel">
+        <div class="chart-title">⚡ Grafik <span>Energi Kinetik</span> vs Waktu</div>
+        <canvas class="chart" id="chart-energy"></canvas>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════ RIGHT PANEL ═══════════════════════════════ -->
+  <aside class="panel-right">
+
+    <div>
+      <div class="section-title">Data Sebelum &amp; Sesudah</div>
+      <div class="data-card">
+        <div class="data-row"><span class="key">v₁ awal</span><span class="val b1" id="d-v1i">— m/s</span></div>
+        <div class="data-row"><span class="key">v₂ awal</span><span class="val b2" id="d-v2i">— m/s</span></div>
+        <div class="data-row" style="padding-top:8px"><span class="key">v₁ akhir</span><span class="val b1" id="d-v1f">— m/s</span></div>
+        <div class="data-row"><span class="key">v₂ akhir</span><span class="val b2" id="d-v2f">— m/s</span></div>
+        <div class="data-row" style="padding-top:8px"><span class="key">p total awal</span><span class="val green" id="d-pi">— kg·m/s</span></div>
+        <div class="data-row"><span class="key">p total akhir</span><span class="val green" id="d-pf">— kg·m/s</span></div>
+        <div class="data-row" style="padding-top:8px"><span class="key">EK awal</span><span class="val yellow" id="d-eki">— J</span></div>
+        <div class="data-row"><span class="key">EK akhir</span><span class="val yellow" id="d-ekf">— J</span></div>
+        <div class="data-row"><span class="key">ΔEK (hilang)</span><span class="val" id="d-dek" style="color:#ff9800">— J</span></div>
+      </div>
+    </div>
+
+    <!-- Conservation check -->
+    <div class="conservation-card">
+      <div class="conservation-title">✅ Kekekalan</div>
+      <div class="cons-row">
+        <span class="cons-icon">🔵</span>
+        <span style="font-size:.72rem;width:64px">Momentum</span>
+        <div class="cons-bar-wrap"><div class="cons-bar momentum" id="bar-momentum" style="width:100%"></div></div>
+        <span class="cons-val" id="cons-p-val">100%</span>
+      </div>
+      <div class="cons-row">
+        <span class="cons-icon">⚡</span>
+        <span style="font-size:.72rem;width:64px">Energi</span>
+        <div class="cons-bar-wrap"><div class="cons-bar energy" id="bar-energy" style="width:100%"></div></div>
+        <span class="cons-val" id="cons-e-val">100%</span>
+      </div>
+    </div>
+
+    <!-- Impuls -->
+    <div>
+      <div class="section-title">Impuls (J = Δp)</div>
+      <div class="impulse-display">
+        <div class="impulse-bar-group" id="impulse-bars">
+          <div class="imp-row">
+            <span class="imp-label">A</span>
+            <div class="imp-track">
+              <div class="imp-fill b1" id="imp-fill-1" style="width:0%"></div>
+            </div>
+            <span class="imp-val b1" id="imp-val-1">0.0 N·s</span>
+          </div>
+          <div class="imp-row">
+            <span class="imp-label">B</span>
+            <div class="imp-track">
+              <div class="imp-fill b2" id="imp-fill-2" style="width:0%"></div>
+            </div>
+            <span class="imp-val b2" id="imp-val-2">0.0 N·s</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Counter -->
+    <div class="collision-counter">
+      <div>
+        <div class="cc-num" id="collision-count">0</div>
+        <div class="cc-label">Jumlah Tumbukan</div>
+      </div>
+      <div style="font-size:2rem">💥</div>
+    </div>
+
+    <!-- Formula -->
+    <div class="formula-box">
+      <h4>📐 Rumus Penting</h4>
+      <div class="formula">
+        <span>p</span> = m·v<br>
+        <span>J</span> = Δp = F·Δt<br>
+        <span>m₁v₁</span> + m₂v₂ = <span>konstan</span><br>
+        <span>e</span> = |v₂'−v₁'|/|v₁−v₂|
+      </div>
+    </div>
+
+    <!-- Info tip -->
+    <div class="info-tip" id="info-tip">
+      <strong>💡 Tips:</strong> Atur massa dan kecepatan kedua bola, lalu tekan <strong>Mulai</strong> untuk melihat tumbukan. Ubah koefisien restitusi untuk mengamati perbedaan tumbukan elastis dan tak elastis.
+    </div>
+
+  </aside>
+</div>
+
+<footer>
+  <span>💥 Simulasi Momentum & Impuls · Fisika SMA/Kuliah</span>
+  <span>Hukum Kekekalan Momentum · Newton III</span>
+</footer>
+     <script src="../assets/js2/custom-momentum.js"></script>
+</body>
+</html>

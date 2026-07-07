@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../assets/logo/logo-file-1760448788.png">
+    <title>MSOLEH | PROYEK</title>
+    <link rel="stylesheet" href="../assets/fonts/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css3/custom-medes.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="../index.html" id="homeLink"><i class="fas fa-home"></i> <span>beranda</span></a>
+        <a href="../about.html"><i class="fas fa-user"></i> <span>profil</span></a>
+        <a href="../portfolio.html"><i class="fas fa-briefcase"></i> <span>proyek</span></a>
+        <a href="../games.html"><i class="fa fa-gamepad"></i> <span>game</span></a>
+        <a href="../lesson.html"><i class="bi bi-camera-video-fill"></i> <span>tutor</span></a>
+        <a href="../contact.html"><i class="fas fa-address-book"></i> <span>kontak</span></a>
+    </nav>
+    <h1>🌊 Simulasi Hukum Archimedes</h1>
+<p class="subtitle">Eksplorasi gaya apung, tenggelam & mengapung secara interaktif</p>
+
+<div class="main-layout">
+
+  <!-- PANEL KIRI -->
+  <div style="display:flex;flex-direction:column;gap:12px;">
+
+    <div class="panel">
+      <h3>⚙️ Benda</h3>
+
+      <div class="select-group">
+        <label>Material</label>
+        <select id="selMaterial" onchange="onMaterialChange()">
+          <option value="custom">Kustom</option>
+          <option value="kayu">Kayu (600 kg/m³)</option>
+          <option value="es">Es (917 kg/m³)</option>
+          <option value="aluminium">Aluminium (2700 kg/m³)</option>
+          <option value="besi">Besi (7870 kg/m³)</option>
+          <option value="tembaga">Tembaga (8960 kg/m³)</option>
+          <option value="emas">Emas (19320 kg/m³)</option>
+          <option value="gabus">Gabus (120 kg/m³)</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label>Massa benda <span id="lblMass">2.00 kg</span></label>
+        <input type="range" id="slMass" min="0.1" max="20" step="0.1" value="2"
+               oninput="update()">
+      </div>
+
+      <div class="control-group">
+        <label>Volume benda <span id="lblVol">2000 cm³</span></label>
+        <input type="range" id="slVol" min="100" max="10000" step="100" value="2000"
+               oninput="update()">
+      </div>
+
+      <div class="toggle-row">
+        <span>Celupkan sepenuhnya</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="togFull" checked onchange="update()">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+
+      <div class="control-group" id="partialGroup" style="display:none;">
+        <label>Volume tercelup <span id="lblSubVol">50%</span></label>
+        <input type="range" id="slSubVol" min="1" max="100" step="1" value="50"
+               oninput="update()">
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>💧 Fluida</h3>
+
+      <div class="select-group">
+        <label>Jenis fluida</label>
+        <select id="selFluid" onchange="onFluidChange()">
+          <option value="air">Air tawar (1000 kg/m³)</option>
+          <option value="airlaut">Air laut (1025 kg/m³)</option>
+          <option value="minyak">Minyak (850 kg/m³)</option>
+          <option value="raksa">Raksa (13600 kg/m³)</option>
+          <option value="alkohol">Alkohol (789 kg/m³)</option>
+          <option value="custom">Kustom</option>
+        </select>
+      </div>
+
+      <div class="control-group" id="fluidDensGroup">
+        <label>Massa jenis fluida <span id="lblFluidDens">1000 kg/m³</span></label>
+        <input type="range" id="slFluidDens" min="500" max="15000" step="50" value="1000"
+               oninput="update()">
+      </div>
+
+      <div class="btn-group">
+        <button class="btn-primary" onclick="animateDrop()">▶ Jalankan</button>
+        <button class="btn-reset" onclick="resetSim()">⟳ Reset</button>
+      </div>
+    </div>
+
+    <!-- HASIL -->
+    <div class="panel">
+      <h3>📊 Hasil Perhitungan</h3>
+      <div class="result-grid">
+        <div class="result-card weight">
+          <div class="rc-label">Berat (W)</div>
+          <div class="rc-value" id="resW">— N</div>
+        </div>
+        <div class="result-card buoyant">
+          <div class="rc-label">Gaya Apung (Fₐ)</div>
+          <div class="rc-value" id="resFa">— N</div>
+        </div>
+        <div class="result-card apparent">
+          <div class="rc-label">Berat Semu</div>
+          <div class="rc-value" id="resWapp">— N</div>
+        </div>
+        <div class="result-card density">
+          <div class="rc-label">ρ Benda</div>
+          <div class="rc-value" id="resDens">— kg/m³</div>
+        </div>
+        <div class="result-card status">
+          <div class="rc-label">Status</div>
+          <div class="rc-value" id="resStatus">—</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PANEL KANAN -->
+  <div class="canvas-wrapper">
+    <canvas id="simCanvas" height="420"></canvas>
+
+    <div class="formula-box">
+      <strong>Hukum Archimedes</strong> — Gaya apung yang bekerja pada benda yang tercelup dalam fluida
+      sama dengan berat fluida yang dipindahkan oleh benda tersebut.
+      <div class="formula-math">Fₐ = ρ_fluida × g × V_tercelup</div>
+      <strong>Berat semu</strong> = Berat asli − Gaya Apung &nbsp;|&nbsp;
+      <strong>Mengapung</strong>: ρ_benda &lt; ρ_fluida &nbsp;|&nbsp;
+      <strong>Tenggelam</strong>: ρ_benda &gt; ρ_fluida
+    </div>
+  </div>
+</div>
+     <script src="../assets/js2/custom-medes.js"></script>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../assets/logo/logo-file-1760448788.png">
+    <title>MSOLEH | PROYEK</title>
+    <link rel="stylesheet" href="../assets/fonts/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css3/custom-gelombang.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="../index.html" id="homeLink"><i class="fas fa-home"></i> <span>beranda</span></a>
+        <a href="../about.html"><i class="fas fa-user"></i> <span>profil</span></a>
+        <a href="../portfolio.html"><i class="fas fa-briefcase"></i> <span>proyek</span></a>
+        <a href="../games.html"><i class="fa fa-gamepad"></i> <span>game</span></a>
+        <a href="../lesson.html"><i class="bi bi-camera-video-fill"></i> <span>tutor</span></a>
+        <a href="../contact.html"><i class="fas fa-address-book"></i> <span>kontak</span></a>
+    </nav>
+    <!-- HEADER -->
+<header>
+  <div class="logo">🌊</div>
+  <div>
+    <h1>Simulasi Gelombang Berjalan</h1>
+    <p>Visualisasi interaktif • Fisika Gelombang SMA/Kuliah</p>
+   </div>
+  <div class="badge">⚡ soleh </div>
+</header>
+
+<div class="main-layout">
+
+  <!-- ═══ SIDEBAR ═══ -->
+  <aside class="sidebar">
+
+    <!-- Mode -->
+    <div class="panel-title">Mode Simulasi</div>
+    <div class="mode-tabs">
+      <button class="mode-tab active" onclick="setMode('travel')" id="tab-travel">🌊 Berjalan</button>
+      <button class="mode-tab" onclick="setMode('standing')" id="tab-standing">🎵 Stasioner</button>
+      <button class="mode-tab" onclick="setMode('super')" id="tab-super">⚡ Superposisi</button>
+    </div>
+
+    <!-- Superpose toggle (only visible in travel mode) -->
+    <div id="superpose-panel" style="display:none;">
+      <div class="toggle-row">
+        <span class="toggle-label">🔀 Superposisi Gelombang 2</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="toggleW2" onchange="toggleWave2()">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Wave 1 Controls -->
+    <div class="panel-title" id="w1-title">🔵 Gelombang 1</div>
+    <div class="control-group">
+      <div class="control-label">
+        <span>Amplitudo <span class="sym">A₁</span></span>
+        <span class="val" id="ampVal">1.00 m</span>
+      </div>
+      <input type="range" id="amp" min="0.1" max="2" step="0.05" value="1.0" oninput="updateParams()">
+    </div>
+    <div class="control-group">
+      <div class="control-label">
+        <span>Frekuensi <span class="sym">f₁</span></span>
+        <span class="val" id="freqVal">1.0 Hz</span>
+      </div>
+      <input type="range" id="freq" min="0.2" max="4" step="0.1" value="1.0" oninput="updateParams()">
+    </div>
+    <div class="control-group">
+      <div class="control-label">
+        <span>Kecepatan <span class="sym">v₁</span></span>
+        <span class="val" id="velVal">5.0 m/s</span>
+      </div>
+      <input type="range" id="vel" min="1" max="15" step="0.5" value="5.0" oninput="updateParams()">
+    </div>
+    <div class="control-group">
+      <div class="control-label">
+        <span>Fase Awal <span class="sym">φ₁</span></span>
+        <span class="val" id="phaseVal">0.0 rad</span>
+      </div>
+      <input type="range" id="phase" min="0" max="6.28" step="0.1" value="0" oninput="updateParams()">
+    </div>
+
+    <!-- Wave 2 Controls (superposition) -->
+    <div id="wave2-controls" style="display:none;">
+      <hr class="divider">
+      <div class="panel-title">🔴 Gelombang 2</div>
+      <div class="control-group">
+        <div class="control-label">
+          <span>Amplitudo <span class="sym">A₂</span></span>
+          <span class="val" id="amp2Val">0.80 m</span>
+        </div>
+        <input type="range" id="amp2" min="0.1" max="2" step="0.05" value="0.8" oninput="updateParams()">
+      </div>
+      <div class="control-group">
+        <div class="control-label">
+          <span>Frekuensi <span class="sym">f₂</span></span>
+          <span class="val" id="freq2Val">1.5 Hz</span>
+        </div>
+        <input type="range" id="freq2" min="0.2" max="4" step="0.1" value="1.5" oninput="updateParams()">
+      </div>
+      <div class="control-group">
+        <div class="control-label">
+          <span>Kecepatan <span class="sym">v₂</span></span>
+          <span class="val" id="vel2Val">5.0 m/s</span>
+        </div>
+        <input type="range" id="vel2" min="1" max="15" step="0.5" value="5.0" oninput="updateParams()">
+      </div>
+      <div class="control-group">
+        <div class="control-label">
+          <span>Fase Awal <span class="sym">φ₂</span></span>
+          <span class="val" id="phase2Val">0.0 rad</span>
+        </div>
+        <input type="range" id="phase2" min="0" max="6.28" step="0.1" value="0" oninput="updateParams()">
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Info Card -->
+    <div class="info-card" id="formula-card">
+      <div class="eq" id="formula-display">y = A·sin(kx − ωt + φ)</div>
+      <div class="info-row"><span>Panjang gelombang λ</span><span id="lambdaInfo">5.00 m</span></div>
+      <div class="info-row"><span>Bilangan gelombang k</span><span id="kInfo">1.257 rad/m</span></div>
+      <div class="info-row"><span>Frek. sudut ω</span><span id="omegaInfo">6.283 rad/s</span></div>
+      <div class="info-row"><span>Periode T</span><span id="periodInfo">1.000 s</span></div>
+    </div>
+
+    <!-- Playback -->
+    <div class="panel-title">Kontrol Pemutaran</div>
+    <div class="btn-row">
+      <button class="btn btn-play"  id="btn-play"  onclick="startSim()">▶ Mulai</button>
+      <button class="btn btn-pause" id="btn-pause" onclick="pauseSim()">⏸ Jeda</button>
+      <button class="btn btn-reset" onclick="resetSim()">⟳ Reset</button>
+    </div>
+    <div class="speed-chips" style="margin-top:10px;">
+      <div class="panel-title" style="margin:0 4px 0 0; align-self:center; white-space:nowrap;">Kecepatan:</div>
+      <div class="chip" onclick="setSpeed(0.25)">¼×</div>
+      <div class="chip" onclick="setSpeed(0.5)">½×</div>
+      <div class="chip active" onclick="setSpeed(1)">1×</div>
+      <div class="chip" onclick="setSpeed(2)">2×</div>
+      <div class="chip" onclick="setSpeed(4)">4×</div>
+    </div>
+
+    <!-- Visibility Toggles -->
+    <hr class="divider">
+    <div class="panel-title">Tampilan</div>
+    <div class="toggle-row">
+      <span class="toggle-label">📏 Tampilkan Grid</span>
+      <label class="toggle-switch">
+        <input type="checkbox" id="showGrid" checked onchange="draw()">
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+    <div class="toggle-row">
+      <span class="toggle-label">🎯 Titik Partikel</span>
+      <label class="toggle-switch">
+        <input type="checkbox" id="showDots" checked onchange="draw()">
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+    <div class="toggle-row">
+      <span class="toggle-label">📊 Grafik Energi</span>
+      <label class="toggle-switch">
+        <input type="checkbox" id="showEnergy" checked onchange="draw()">
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+
+  </aside>
+
+  <!-- ═══ CANVAS AREA ═══ -->
+  <main class="canvas-area">
+
+    <!-- Metrics -->
+    <div class="metrics">
+      <div class="metric-box">
+        <div class="m-sym">λ (lambda)</div>
+        <div class="m-val" id="m-lambda">5.00</div>
+        <div class="m-lbl">Panjang Gelombang (m)</div>
+      </div>
+      <div class="metric-box">
+        <div class="m-sym">T (periode)</div>
+        <div class="m-val" id="m-period">1.00</div>
+        <div class="m-lbl">Periode (s)</div>
+      </div>
+      <div class="metric-box">
+        <div class="m-sym">v (kecepatan)</div>
+        <div class="m-val" id="m-vel">5.00</div>
+        <div class="m-lbl">Cepat Rambat (m/s)</div>
+      </div>
+      <div class="metric-box">
+        <div class="m-sym">y(0,t) saat ini</div>
+        <div class="m-val" id="m-y0">0.00</div>
+        <div class="m-lbl">Simpangan di x=0 (m)</div>
+      </div>
+    </div>
+
+    <!-- Main Wave Canvas -->
+    <div class="canvas-card">
+      <div class="canvas-header">
+        <div>
+          <div class="canvas-title" id="main-canvas-title">🌊 Gelombang Berjalan — y(x, t)</div>
+          <div class="canvas-sub">Simpangan partikel medium terhadap posisi</div>
+        </div>
+        <div class="phase-readout">
+          <div class="dot" style="background:#3b82f6;"></div>
+          <span id="time-display">t = 0.00 s</span>
+        </div>
+      </div>
+      <canvas id="mainCanvas"></canvas>
+    </div>
+
+    <!-- Time-domain canvas -->
+    <div class="canvas-card">
+      <div class="canvas-header">
+        <div>
+          <div class="canvas-title">⏱ Grafik Waktu — y(x₀, t)</div>
+          <div class="canvas-sub" id="tdomain-sub">Simpangan partikel di x = 0 terhadap waktu</div>
+        </div>
+      </div>
+      <canvas id="timeCanvas"></canvas>
+    </div>
+
+    <!-- Energy canvas (optional) -->
+    <div class="canvas-card" id="energy-card">
+      <div class="canvas-header">
+        <div>
+          <div class="canvas-title">⚡ Distribusi Energi</div>
+          <div class="canvas-sub">Energi kinetik (biru) & potensial (merah) sepanjang gelombang</div>
+        </div>
+      </div>
+      <canvas id="energyCanvas"></canvas>
+    </div>
+
+  </main>
+</div>
+     <script src="../assets/js2/custom-gelombang.js"></script>
+</body>
+</html>

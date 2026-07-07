@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../assets/logo/logo-file-1760448788.png">
+    <title>MSOLEH | PROYEK</title>
+    <link rel="stylesheet" href="../assets/fonts/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css3/custom-boyle.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="../index.html" id="homeLink"><i class="fas fa-home"></i> <span>beranda</span></a>
+        <a href="../about.html"><i class="fas fa-user"></i> <span>profil</span></a>
+        <a href="../portfolio.html"><i class="fas fa-briefcase"></i> <span>proyek</span></a>
+        <a href="../games.html"><i class="fa fa-gamepad"></i> <span>game</span></a>
+        <a href="../lesson.html"><i class="bi bi-camera-video-fill"></i> <span>tutor</span></a>
+        <a href="../contact.html"><i class="fas fa-address-book"></i> <span>kontak</span></a>
+    </nav>
+    <header>
+  <div>
+    <h1>⚗️ Simulasi Hukum Gas Ideal</h1>
+    <span>Boyle · Charles · Gay-Lussac — Eksplorasi Interaktif</span>
+  </div>
+</header>
+
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('boyle', this)">
+    <span class="tab-dot dot-boyle"></span> Hukum Boyle
+  </button>
+  <button class="tab-btn" onclick="switchTab('charles', this)">
+    <span class="tab-dot dot-charles"></span> Hukum Charles
+  </button>
+  <button class="tab-btn" onclick="switchTab('gay', this)">
+    <span class="tab-dot dot-gay"></span> Hukum Gay-Lussac
+  </button>
+</div>
+
+<!-- ════════════════ BOYLE ════════════════ -->
+<div id="tab-boyle" class="tab-content active">
+
+  <div class="sim-panel">
+    <div class="formula-box">
+      <div class="formula-label">Hukum Boyle</div>
+      <div class="formula-text">P₁V₁ = P₂V₂ = k &nbsp;(T konstan)</div>
+    </div>
+
+    <div class="canvas-wrap">
+      <canvas id="boyleCanvas" width="560" height="320"></canvas>
+    </div>
+
+    <div class="particle-info">
+      <div class="pi-item"><div class="pi-dot" style="background:#7ecfff"></div> Molekul gas</div>
+      <div class="pi-item"><div class="pi-dot" style="background:#ff8585"></div> Tekanan tinggi</div>
+      <div class="pi-item">Pistons bergerak saat Anda geser slider</div>
+    </div>
+  </div>
+
+  <div class="ctrl-panel">
+    <div class="section-title">Kontrol Simulasi</div>
+
+    <div class="control-group">
+      <div class="control-label">
+        Tekanan (P₁) <span class="val-badge" id="boyle-p1-val">1.0 atm</span>
+      </div>
+      <input type="range" class="slider-boyle" id="boyle-p1"
+             min="0.5" max="4" step="0.1" value="1"
+             oninput="updateBoyle()">
+    </div>
+
+    <hr class="divider">
+
+    <div class="section-title">Hasil Perhitungan</div>
+    <div class="result-grid">
+      <div class="result-card">
+        <div class="rc-label">Volume Awal (V₁)</div>
+        <div class="rc-value rc-boyle" id="boyle-v1">200 L</div>
+      </div>
+      <div class="result-card">
+        <div class="rc-label">Volume Akhir (V₂)</div>
+        <div class="rc-value rc-boyle" id="boyle-v2">200 L</div>
+      </div>
+      <div class="result-card">
+        <div class="rc-label">Tekanan P₁</div>
+        <div class="rc-value rc-boyle" id="boyle-p1-disp">1.0 atm</div>
+      </div>
+      <div class="result-card">
+        <div class="rc-label">Konstanta k</div>
+        <div class="rc-value rc-boyle" id="boyle-k">200.0</div>
+      </div>
+    </div>
+
+    <hr class="divider">
+    <div class="section-title">Grafik P–V</div>
+    <div class="chart-wrap" style="height:170px">
+      <canvas id="boyleChart"></canvas>
+    </div>
+
+    <div class="law-desc boyle-border">
+      <strong>Hukum Boyle (1662):</strong> Pada suhu konstan, tekanan gas berbanding
+      terbalik dengan volumenya. Semakin kecil volume, semakin besar tekanan —
+      karena molekul lebih sering bertumbukan dengan dinding wadah.
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ CHARLES ════════════════ -->
+<div id="tab-charles" class="tab-content">
+
+  <div class="sim-panel">
+    <div class="formula-box">
+      <div class="formula-label">Hukum Charles</div>
+      <div class="formula-text">V₁/T₁ = V₂/T₂ &nbsp;(P konstan)</div>
+    </div>
+
+    <div class="canvas-wrap">
+      <canvas id="charlesCanvas" width="560" height="320"></canvas>
+    </div>
+
+    <div class="particle-info">
+      <div class="pi-item"><div class="pi-dot" style="background:#ffd166"></div> Molekul gas</div>
+      <div class="pi-item">Piston bergerak bebas mengikuti suhu</div>
+    </div>
+  </div>
+
+  <div class="ctrl-panel">
+    <div class="section-title">Kontrol Simulasi</div>
+
+    <div class="control-group">
+      <div class="control-label">
+        Suhu (T) <span class="val-badge" id="charles-t-val">300 K</span>
+      </div>
+      <input type="range" class="slider-charles" id="charles-t"
+             min="100" max="600" step="10" value="300"
+             oninput="updateCharles()">
+    </div>
+
+    <hr class="divider">
+    <div class="section-title">Hasil Perhitungan</div>
+    <div class="result-grid">
+      <div class="result-card">
+        <div class="rc-label">Suhu (T)</div>
+        <div class="rc-value rc-charles" id="charles-t-disp">300 K</div>
+      </div>
+      <div class="result-card">
+        <div class="rc-label">Suhu (°C)</div>
+        <div class="rc-value rc-charles" id="charles-tc">27 °C</div>
+      </div>
+      <div class="result-card">
+        <div class="rc-label">Volume (V)</div>
+        <div class="rc-value rc-charles" id="charles-v">100.0 L</div>
+      </div>
+      <div class="result-card">
+        <div class="rc-label">Rasio V/T</div>
+        <div class="rc-value rc-charles" id="charles-ratio">0.333</div>
+      </div>
+    </div>
+
+    <hr class="divider">
+    <div class="section-title">Grafik V–T</div>
+    <div class="chart-wrap" style="height:170px">
+      <canvas id="charlesChart"></canvas>
+    </div>
+
+    <div class="law-desc charles-border">
+      <strong>Hukum Charles (1787):</strong> Pada tekanan konstan, volume gas
+      berbanding lurus dengan suhu absolutnya. Gas memuai saat dipanaskan karena
+      molekul bergerak lebih cepat dan membutuhkan ruang lebih besar.
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ GAY-LUSSAC ════════════════ -->
+<div id="tab-gay" class="tab-content">
+
+  <div class="sim-panel">
+    <div class="formula-box">
+      <div class="formula-label">Hukum Gay-Lussac</div>
+      <div class="formula-text">P₁/T₁ = P₂/T₂ &nbsp;(V konstan)</div>
+    </div>
+
+    <div class="canvas-wrap">
+      <canvas id="gayCanvas" width="560" height="320"></canvas>
+    </div>
+
+    <div class="particle-info">
+      <div class="pi-item"><div class="pi-dot" style="background:#06d6a0"></div> Molekul gas</div>
+      <div class="pi-item">Volume tetap, tekanan berubah sesuai suhu</div>
+    </div>
+  </div>
+
+  <div class="ctrl-panel">
+    <div class="section-title">Kontrol Simulasi</div>
+
+    <div class="control-group">
+      <div class="control-label">
+        Suhu (T) <span class="val-badge" id="gay-t-val">300 K</span>
+      </div>
+      <input type="range" class="slider-gay" id="gay-t"
+             min="100" max="600" step="10" value="300"
+             oninput="updateGay()">
+    </div>
+
+    <hr class="divider">
+    <div class="section-title">Hasil Perhitungan</div>
+    <div class="result-grid">
+      <div class="result-card">
+        <div class="rc-label">Suhu (T)</div>
+        <div class="rc-value rc-gay" id="gay-t-disp">300 K</div>
+      </div>
+      <div class="result-card">
+        <div class="rc-label">Suhu (°C)</div>
+        <div class="rc-value rc-gay" id="gay-tc">27 °C</div>
+      </div>
+      <div class="result-card">
+        <div class="rc-label">Tekanan (P)</div>
+        <div class="rc-value rc-gay" id="gay-p">1.00 atm</div>
+      </div>
+      <div class="result-card">
+        <div class="rc-label">Rasio P/T</div>
+        <div class="rc-value rc-gay" id="gay-ratio">0.00333</div>
+      </div>
+    </div>
+
+    <hr class="divider">
+    <div class="section-title">Grafik P–T</div>
+    <div class="chart-wrap" style="height:170px">
+      <canvas id="gayChart"></canvas>
+    </div>
+
+    <div class="law-desc gay-border">
+      <strong>Hukum Gay-Lussac (1808):</strong> Pada volume konstan, tekanan gas
+      berbanding lurus dengan suhu absolutnya. Inilah mengapa ban mobil bisa meledak
+      di hari panas, dan kaleng aerosol harus dijauhkan dari api.
+    </div>
+  </div>
+</div>
+     <script src="../assets/js2/custom-boyle.js"></script>
+</body>
+</html>

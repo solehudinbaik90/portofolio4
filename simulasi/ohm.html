@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../assets/logo/logo-file-1760448788.png">
+    <title>MSOLEH | PROYEK</title>
+    <link rel="stylesheet" href="../assets/fonts/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css3/custom-ohm.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="../index.html" id="homeLink"><i class="fas fa-home"></i> <span>beranda</span></a>
+        <a href="../about.html"><i class="fas fa-user"></i> <span>profil</span></a>
+        <a href="../portfolio.html"><i class="fas fa-briefcase"></i> <span>proyek</span></a>
+        <a href="../games.html"><i class="fa fa-gamepad"></i> <span>game</span></a>
+        <a href="../lesson.html"><i class="bi bi-camera-video-fill"></i> <span>tutor</span></a>
+        <a href="../contact.html"><i class="fas fa-address-book"></i> <span>kontak</span></a>
+    </nav>
+
+    <header>
+  <div class="soleh-logo">soleh</div>
+  <h1>⚡ Simulasi Hukum Ohm</h1>
+</header>
+
+<div class="main-container">
+
+  <!-- FORMULA SECTION -->
+  <div class="formula-section">
+    <div class="formula-title">Persamaan Hukum Ohm</div>
+    <div class="formula-display">
+      <span class="formula-letter letter-V glow-pulse" id="fV" style="font-size:4rem">V</span>
+      <span class="letter-eq">=</span>
+      <span class="formula-letter letter-I glow-pulse" id="fI" style="font-size:4rem">I</span>
+      <span style="font-size:2.5rem; color:#aaa; margin: 0 4px;">×</span>
+      <span class="formula-letter letter-R glow-pulse" id="fR" style="font-size:4rem">R</span>
+    </div>
+    <div class="formula-desc">
+      <strong style="color:#3399ff">V</strong> = Tegangan (Volt) &nbsp;|&nbsp;
+      <strong style="color:#ff4444">I</strong> = Arus (Ampere) &nbsp;|&nbsp;
+      <strong style="color:#3399ff">R</strong> = Resistansi (Ohm Ω)
+    </div>
+    <div class="relative-size-desc" id="relativeDesc">
+      Atur slider untuk melihat hubungan V, I, dan R
+    </div>
+  </div>
+
+  <!-- CIRCUIT SECTION -->
+  <div class="circuit-section">
+    <div class="circuit-title">🔌 Rangkaian Listrik</div>
+    <div class="circuit-canvas-wrapper">
+      <canvas id="circuit" width="700" height="200"></canvas>
+    </div>
+  </div>
+
+  <!-- BOTTOM PANEL -->
+  <div class="bottom-panel">
+
+    <!-- SLIDERS -->
+    <div class="slider-panel">
+
+      <!-- Voltage Slider -->
+      <div class="slider-group">
+        <div class="slider-header">
+          <div class="slider-label">
+            <span class="slider-letter" style="color:#3399ff">V</span>
+            <span class="slider-name">Tegangan</span>
+          </div>
+          <div class="slider-value" style="color:#3399ff">
+            <span id="voltageDisplay">4.5</span>
+            <span class="slider-unit">Volt</span>
+          </div>
+        </div>
+        <input type="range" class="voltage-slider" id="voltageSlider"
+               min="0.1" max="9" step="0.1" value="4.5"
+               aria-label="Slider Tegangan">
+        <div style="display:flex; justify-content:space-between; font-size:0.72rem; color:#666; margin-top:4px;">
+          <span>0.1 V</span><span>9 V</span>
+        </div>
+      </div>
+
+      <!-- Resistance Slider -->
+      <div class="slider-group">
+        <div class="slider-header">
+          <div class="slider-label">
+            <span class="slider-letter" style="color:#3399ff">R</span>
+            <span class="slider-name">Resistansi</span>
+          </div>
+          <div class="slider-value" style="color:#3399ff">
+            <span id="resistanceDisplay">500</span>
+            <span class="slider-unit">Ohm</span>
+          </div>
+        </div>
+        <input type="range" class="resistance-slider" id="resistanceSlider"
+               min="10" max="1000" step="10" value="500"
+               aria-label="Slider Resistansi">
+        <div style="display:flex; justify-content:space-between; font-size:0.72rem; color:#666; margin-top:4px;">
+          <span>10 Ω</span><span>1000 Ω</span>
+        </div>
+      </div>
+
+      <!-- Info Box -->
+      <div class="info-box">
+        💡 <strong>Hukum Ohm:</strong> Arus yang mengalir melalui konduktor sebanding dengan tegangan dan berbanding terbalik dengan resistansi.<br>
+        <strong>I = V / R</strong>
+      </div>
+    </div>
+
+    <!-- CURRENT DISPLAY -->
+    <div class="current-display">
+      <div class="current-label">⚡ Arus Listrik</div>
+      <div class="current-equation">I = V ÷ R</div>
+      <div class="current-value-big" id="currentDisplay">9.0</div>
+      <div class="current-unit-display">milliampere (mA)</div>
+      <div class="current-bar">
+        <div class="current-bar-fill" id="currentBar" style="width: 0.9%"></div>
+      </div>
+      <div style="margin-top: 12px; font-size: 0.8rem; color: #ff9999;">
+        <span id="currentAmpDisplay">0.009</span> Ampere
+      </div>
+      <div style="margin-top: 6px; font-size: 0.75rem; color: #888;" id="currentDesc">
+        Arus sangat kecil
+      </div>
+    </div>
+  </div>
+
+  <!-- RESET BUTTON -->
+  <button class="reset-btn" onclick="resetValues()">🔄 Reset Semua</button>
+
+</div>
+
+    <script src="../assets/js2/custom-ohm.js"></script>
+</body>
+</html>

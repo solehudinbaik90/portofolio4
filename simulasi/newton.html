@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../assets/logo/logo-file-1760448788.png">
+    <title>MSOLEH | PROYEK</title>
+    <link rel="stylesheet" href="../assets/fonts/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css3/custom-newton.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="../index.html" id="homeLink"><i class="fas fa-home"></i> <span>beranda</span></a>
+        <a href="../about.html"><i class="fas fa-user"></i> <span>profil</span></a>
+        <a href="../portfolio.html"><i class="fas fa-briefcase"></i> <span>proyek</span></a>
+        <a href="../games.html"><i class="fa fa-gamepad"></i> <span>game</span></a>
+        <a href="../lesson.html"><i class="bi bi-camera-video-fill"></i> <span>tutor</span></a>
+        <a href="../contact.html"><i class="fas fa-address-book"></i> <span>kontak</span></a>
+    </nav>
+    <header>
+  <div style="font-size:2rem">⚛️</div>
+  <div>
+    <h1>Simulasi Hukum Newton</h1>
+    <p>Eksplorasi interaktif — Gaya · Massa · Percepatan</p>
+  </div>
+</header>
+
+<div class="tab-bar">
+  <div class="tab active" onclick="switchTab(0)">📌 Hukum I — Inersia</div>
+  <div class="tab" onclick="switchTab(1)">⚡ Hukum II — F = ma</div>
+  <div class="tab" onclick="switchTab(2)">🔄 Hukum III — Aksi-Reaksi</div>
+</div>
+
+<div class="main">
+  <!-- ═══════════════ PANEL KIRI ═══════════════ -->
+  <div class="panel" id="sidePanel">
+
+    <!-- TAB 0 -->
+    <div class="tab-ctrl" id="ctrl0">
+      <h3>🎛️ Kontrol</h3>
+      <div class="slider-group">
+        <div class="slider-row">
+          <span>Kecepatan awal</span>
+          <span class="slider-val" id="v0_val">50 m/s</span>
+        </div>
+        <input type="range" id="v0" min="10" max="200" value="50"
+               oninput="updateSlider('v0','v0_val',this.value,'m/s');resetSim()">
+
+        <div class="slider-row">
+          <span>Massa benda</span>
+          <span class="slider-val" id="m0_val">5 kg</span>
+        </div>
+        <input type="range" id="m0" min="1" max="20" value="5"
+               oninput="updateSlider('m0','m0_val',this.value,'kg');resetSim()">
+      </div>
+      <hr class="divider">
+      <h3>🔭 Tampilan</h3>
+      <label class="checkbox-row"><input type="checkbox" id="showVel" checked onchange="draw()"> Vektor kecepatan</label>
+      <label class="checkbox-row"><input type="checkbox" id="showTrail" checked onchange="draw()"> Jejak gerak</label>
+      <label class="checkbox-row"><input type="checkbox" id="showFriction"> Ada Gesekan</label>
+      <hr class="divider">
+      <div class="readout-grid">
+        <div class="readout-card"><div class="val" id="r0_v">—</div><div class="lbl">Kecepatan (m/s)</div></div>
+        <div class="readout-card"><div class="val" id="r0_t">—</div><div class="lbl">Waktu (s)</div></div>
+        <div class="readout-card"><div class="val" id="r0_x">—</div><div class="lbl">Posisi (m)</div></div>
+        <div class="readout-card"><div class="val" id="r0_p">—</div><div class="lbl">Momentum (kg·m/s)</div></div>
+      </div>
+      <div class="law-badge">
+        <b>Hukum I Newton:</b><br>
+        Benda tetap diam atau bergerak lurus beraturan selama tidak ada gaya neto yang bekerja padanya.
+      </div>
+    </div>
+
+    <!-- TAB 1 -->
+    <div class="tab-ctrl" id="ctrl1" style="display:none">
+      <h3>🎛️ Kontrol</h3>
+      <div class="slider-group">
+        <div class="slider-row">
+          <span>Gaya (F)</span>
+          <span class="slider-val" id="f1_val">20 N</span>
+        </div>
+        <input type="range" id="f1" min="-100" max="100" value="20"
+               oninput="updateSlider('f1','f1_val',this.value,'N');resetSim()">
+
+        <div class="slider-row">
+          <span>Massa (m)</span>
+          <span class="slider-val" id="m1_val">5 kg</span>
+        </div>
+        <input type="range" id="m1" min="1" max="30" value="5"
+               oninput="updateSlider('m1','m1_val',this.value,'kg');resetSim()">
+
+        <div class="slider-row">
+          <span>Gesekan (μ)</span>
+          <span class="slider-val" id="mu_val">0.0</span>
+        </div>
+        <input type="range" id="mu" min="0" max="0.8" step="0.05" value="0"
+               oninput="updateSlider('mu','mu_val',parseFloat(this.value).toFixed(2),'');resetSim()">
+      </div>
+      <hr class="divider">
+      <h3>🔭 Tampilan</h3>
+      <label class="checkbox-row"><input type="checkbox" id="showForceVec" checked onchange="draw()"> Vektor gaya</label>
+      <label class="checkbox-row"><input type="checkbox" id="showAccVec" checked onchange="draw()"> Vektor percepatan</label>
+      <hr class="divider">
+      <div class="readout-grid">
+        <div class="readout-card"><div class="val" id="r1_a">—</div><div class="lbl">Percepatan (m/s²)</div></div>
+        <div class="readout-card"><div class="val" id="r1_v">—</div><div class="lbl">Kecepatan (m/s)</div></div>
+        <div class="readout-card"><div class="val" id="r1_f">—</div><div class="lbl">Gaya Neto (N)</div></div>
+        <div class="readout-card"><div class="val" id="r1_t">—</div><div class="lbl">Waktu (s)</div></div>
+      </div>
+      <div class="law-badge">
+        <b>Hukum II Newton:</b><br>
+        Percepatan benda sebanding dengan gaya neto dan berbanding terbalik dengan massa.<br>
+        <b>a = F/m</b>
+      </div>
+    </div>
+
+    <!-- TAB 2 -->
+    <div class="tab-ctrl" id="ctrl2" style="display:none">
+      <h3>🎛️ Kontrol</h3>
+      <div class="slider-group">
+        <div class="slider-row">
+          <span>Gaya aksi (F)</span>
+          <span class="slider-val" id="f2_val">40 N</span>
+        </div>
+        <input type="range" id="f2" min="10" max="150" value="40"
+               oninput="updateSlider('f2','f2_val',this.value,'N')">
+
+        <div class="slider-row">
+          <span>Massa A (m₁)</span>
+          <span class="slider-val" id="ma_val">5 kg</span>
+        </div>
+        <input type="range" id="ma" min="1" max="20" value="5"
+               oninput="updateSlider('ma','ma_val',this.value,'kg');resetSim()">
+
+        <div class="slider-row">
+          <span>Massa B (m₂)</span>
+          <span class="slider-val" id="mb_val">5 kg</span>
+        </div>
+        <input type="range" id="mb" min="1" max="20" value="5"
+               oninput="updateSlider('mb','mb_val',this.value,'kg');resetSim()">
+      </div>
+      <hr class="divider">
+      <div class="readout-grid">
+        <div class="readout-card"><div class="val" id="r2_a1">—</div><div class="lbl">Percepatan A (m/s²)</div></div>
+        <div class="readout-card"><div class="val" id="r2_a2">—</div><div class="lbl">Percepatan B (m/s²)</div></div>
+        <div class="readout-card"><div class="val" id="r2_f">—</div><div class="lbl">Gaya Aksi (N)</div></div>
+        <div class="readout-card"><div class="val" id="r2_fr">—</div><div class="lbl">Gaya Reaksi (N)</div></div>
+      </div>
+      <div class="law-badge">
+        <b>Hukum III Newton:</b><br>
+        Setiap aksi menghasilkan reaksi yang sama besar dan berlawanan arah.<br>
+        <b>F<sub>aksi</sub> = −F<sub>reaksi</sub></b>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-play"  id="btnPlay"  onclick="playSim()">▶ Mulai</button>
+      <button class="btn btn-reset" id="btnReset" onclick="resetSim()">⟳ Reset</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════ KANVAS ═══════════════ -->
+  <div class="canvas-area">
+    <canvas id="simCanvas"></canvas>
+    <div class="formula-bar" id="formulaBar">
+      Pilih simulasi dan klik ▶ Mulai
+    </div>
+  </div>
+</div>
+
+<div id="tooltip"></div>
+     <script src="../assets/js2/custom-newton.js"></script>
+</body>
+</html>

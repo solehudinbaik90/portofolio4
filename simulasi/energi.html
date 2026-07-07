@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../assets/logo/logo-file-1760448788.png">
+    <title>MSOLEH | PROYEK</title>
+    <link rel="stylesheet" href="../assets/fonts/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css3/custom-energi.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="../index.html" id="homeLink"><i class="fas fa-home"></i> <span>beranda</span></a>
+        <a href="../about.html"><i class="fas fa-user"></i> <span>profil</span></a>
+        <a href="../portfolio.html"><i class="fas fa-briefcase"></i> <span>proyek</span></a>
+        <a href="../games.html"><i class="fa fa-gamepad"></i> <span>game</span></a>
+        <a href="../lesson.html"><i class="bi bi-camera-video-fill"></i> <span>tutor</span></a>
+        <a href="../contact.html"><i class="fas fa-address-book"></i> <span>kontak</span></a>
+    </nav>
+    <header>
+  <div class="logo">soleh</div>
+  <div>
+    <h1>⚡ Simulasi Hukum Kekekalan Energi</h1>
+    <p>Eksplorasi interaktif energi kinetik, potensial, dan mekanik</p>
+  </div>
+</header>
+
+<div class="main-container">
+
+  <!-- SCENARIO SELECTOR -->
+  <div class="scenario-bar">
+    <button class="scene-btn active" onclick="setScene('freefall')">🪂 Jatuh Bebas</button>
+    <button class="scene-btn" onclick="setScene('pendulum')">🔮 Bandul</button>
+    <button class="scene-btn" onclick="setScene('ramp')">⛷️ Lintasan Miring</button>
+    <button class="scene-btn" onclick="setScene('spring')">🌀 Pegas</button>
+    <button class="scene-btn" onclick="setScene('projectile')">🎯 Peluru</button>
+  </div>
+
+  <!-- FORMULA BAR -->
+  <div class="formula-bar" id="formulaBar">
+    <span class="formula-pill"><span class="hl-em">E<sub>m</sub></span> = <span class="hl-ep">E<sub>p</sub></span> + <span class="hl-ek">E<sub>k</sub></span></span>
+    <span class="formula-pill"><span class="hl-ep">E<sub>p</sub></span> = mgh</span>
+    <span class="formula-pill"><span class="hl-ek">E<sub>k</sub></span> = ½mv²</span>
+    <span class="formula-pill"><span class="hl-em">E<sub>m1</sub></span> = <span class="hl-em">E<sub>m2</sub></span> (tanpa gesekan)</span>
+  </div>
+
+  <!-- SIM LAYOUT -->
+  <div class="sim-layout">
+
+    <!-- CANVAS -->
+    <div class="canvas-wrap">
+      <div class="canvas-title" id="sceneTitle">🪂 Skenario: Jatuh Bebas — Klik & Seret benda untuk mengatur ketinggian</div>
+      <canvas id="mainCanvas" height="460"></canvas>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+
+      <!-- ENERGY BARS -->
+      <div class="panel-card">
+        <div class="panel-title">⚡ Diagram Energi</div>
+        <div class="energy-row">
+          <div class="e-col">
+            <div class="e-val" id="ep-val">0 J</div>
+            <div class="e-track"><div class="e-fill fill-ep" id="bar-ep" style="height:0%"></div></div>
+            <div class="e-label">🔴 Ep<br><small>Potensial</small></div>
+          </div>
+          <div class="e-col">
+            <div class="e-val" id="ek-val">0 J</div>
+            <div class="e-track"><div class="e-fill fill-ek" id="bar-ek" style="height:0%"></div></div>
+            <div class="e-label">🔵 Ek<br><small>Kinetik</small></div>
+          </div>
+          <div class="e-col">
+            <div class="e-val" id="em-val">0 J</div>
+            <div class="e-track"><div class="e-fill fill-em" id="bar-em" style="height:50%"></div></div>
+            <div class="e-label">🟢 Em<br><small>Mekanik</small></div>
+          </div>
+          <div class="e-col" id="col-q" style="display:none">
+            <div class="e-val" id="q-val">0 J</div>
+            <div class="e-track"><div class="e-fill fill-q" id="bar-q" style="height:0%"></div></div>
+            <div class="e-label">🟠 Q<br><small>Kalor</small></div>
+          </div>
+        </div>
+        <div class="conservation-badge badge-neutral" id="consBadge">⚙️ Atur parameter & jalankan simulasi</div>
+      </div>
+
+      <!-- READOUTS -->
+      <div class="panel-card">
+        <div class="panel-title">📊 Nilai Terukur</div>
+        <div class="readout-grid">
+          <div class="readout-item">
+            <div class="readout-lbl">Ketinggian (h)</div>
+            <div class="readout-num" id="rd-h" style="color:#ff9933">— m</div>
+          </div>
+          <div class="readout-item">
+            <div class="readout-lbl">Kecepatan (v)</div>
+            <div class="readout-num" id="rd-v" style="color:#44aaff">— m/s</div>
+          </div>
+          <div class="readout-item">
+            <div class="readout-lbl">Massa (m)</div>
+            <div class="readout-num" id="rd-m" style="color:#cc88ff">— kg</div>
+          </div>
+          <div class="readout-item">
+            <div class="readout-lbl">Waktu (t)</div>
+            <div class="readout-num" id="rd-t" style="color:#88ff88">— s</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTROLS -->
+      <div class="panel-card">
+        <div class="panel-title">🎛️ Parameter</div>
+
+        <div class="slider-group">
+          <div class="sl-header">
+            <span class="sl-name">⚖️ Massa (m)</span>
+            <span class="sl-val" id="lbl-m" style="color:#cc88ff">2.0 kg</span>
+          </div>
+          <input type="range" class="range-m" id="sl-mass" min="1" max="10" step="0.5" value="2">
+        </div>
+
+        <div class="slider-group">
+          <div class="sl-header">
+            <span class="sl-name">📐 Ketinggian Awal (h)</span>
+            <span class="sl-val" id="lbl-h" style="color:#ff9933">6.0 m</span>
+          </div>
+          <input type="range" class="range-h" id="sl-height" min="1" max="10" step="0.5" value="6">
+        </div>
+
+        <div class="slider-group" id="grp-friction">
+          <div class="sl-header">
+            <span class="sl-name">🌡️ Gesekan / Hambatan</span>
+            <span class="sl-val" id="lbl-fr" style="color:#33cc00">0%</span>
+          </div>
+          <input type="range" class="range-fr" id="sl-friction" min="0" max="60" step="5" value="0">
+        </div>
+
+        <div class="slider-group" id="grp-angle" style="display:none">
+          <div class="sl-header">
+            <span class="sl-name">📐 Sudut Bandul (θ)</span>
+            <span class="sl-val" id="lbl-angle" style="color:#ffcc00">45°</span>
+          </div>
+          <input type="range" style="background:linear-gradient(to right,#1a1100,#ffcc00)" id="sl-angle" min="5" max="80" step="5" value="45">
+        </div>
+
+        <div class="slider-group" id="grp-spring-k" style="display:none">
+          <div class="sl-header">
+            <span class="sl-name">🌀 Konstanta Pegas (k)</span>
+            <span class="sl-val" id="lbl-k" style="color:#ffd700">200 N/m</span>
+          </div>
+          <input type="range" class="range-h" id="sl-k" min="20" max="600" step="20" value="200">
+        </div>
+
+        <label class="trail-toggle">
+          <input type="checkbox" id="trailCheck" checked> 🔵 Tampilkan jejak energi
+        </label>
+      </div>
+
+      <!-- INFO -->
+      <div class="info-box" id="infoBox">
+        💡 <strong>Energi Kekal:</strong> Tanpa gesekan, <strong>E<sub>m</sub> = Ep + Ek</strong> selalu konstan.<br>
+        Saat benda turun → Ep ↓ Ek ↑, namun total tetap sama!
+      </div>
+
+      <!-- BUTTONS -->
+      <div class="btn-row">
+        <button class="btn-play" id="btnPlay" onclick="togglePlay()">▶ Mulai</button>
+        <button class="btn-step" onclick="stepOnce()">⏭ Step</button>
+        <button class="btn-reset" onclick="resetSim()">⟳ Reset</button>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+     <script src="../assets/js2/custom-energi.js"></script>
+</body>
+</html>
