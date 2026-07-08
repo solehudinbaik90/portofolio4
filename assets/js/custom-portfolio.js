@@ -4,7 +4,7 @@
 
 // --- Animated Tab Title ---
 (function () {
-    const baseTitle = "MSOLEH | PROJECT";
+    const baseTitle = "MSOLEH | PROYEK";
     const loader = ["🕛","🕐","🕑","🕒","🕓","🕔","🕕","🕖","🕗","🕘","🕙","🕚"];
     let i = 0;
     setInterval(() => {
