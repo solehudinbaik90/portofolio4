@@ -2,7 +2,7 @@
    custom contact js
    ========================================== */
 
-// --- Animated Tab Title ---
+// --- Animated Tab Title --- //
 (function () {
     const baseTitle = "MSOLEH | KONTAK";
     const loader = ["🕛","🕐","🕑","🕒","🕓","🕔","🕕","🕖","🕗","🕘","🕙","🕚"];
@@ -13,7 +13,7 @@
     }, 200);
 })();
 
-// --- Home Link Handler ---
+// --- Home Link Handler ---//
 (function () {
     const homeLink = document.getElementById("homeLink");
     if (!homeLink) return;
@@ -74,6 +74,16 @@
       } else {
         throw new Error(data.error || "Terjadi kesalahan.");
       }
+
+    grecaptcha.ready(function () {
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    setLoading(true);
+    setStatus("", true);
+
+    try {
+      const token = await grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: "submit" });
+
     } catch (err) {
       setStatus("❌ Gagal mengirim: " + err.message, false);
     } finally {
