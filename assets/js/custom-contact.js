@@ -37,23 +37,24 @@
 
 // --- FORMULIR PESAN --- //
 
-  const SCRIPT_URL        = "https://script.google.com/macros/s/AKfycbz5gL60I9g-fwaQY0Mu3BdErdW-nVaRJBiRBY4sP8MsZYsm7S4xjLH3ZW70Xpi6oJE/exec";
-  const RECAPTCHA_SITE_KEY = "6LfZUkwtAAAAAJ40Yg2QOJJI_7WfAatRayNrrfAt";
+  const SCRIPT_URL         = "https://script.google.com/macros/s/AKfycbz5gL60I9g-fwaQY0Mu3BdErdW-nVaRJBiRBY4sP8MsZYsm7S4xjLH3ZW70Xpi6oJE/exec";
+const RECAPTCHA_SITE_KEY  = "6LfZUkwtAAAAAJ40Yg2QOJJI_7WfAatRayNrrfAt";
 
-  const form      = document.getElementById("contactForm");
-  const submitBtn = document.getElementById("submitBtn");
-  const status    = document.getElementById("formStatus");
+const form      = document.getElementById("contactForm");
+const submitBtn = document.getElementById("submitBtn");
+const status    = document.getElementById("formStatus");
 
-  function setStatus(message, isSuccess) {
-    status.style.color = isSuccess ? "green" : "red";
-    status.textContent = message;
-  }
+function setStatus(message, isSuccess) {
+  status.style.color = isSuccess ? "green" : "red";
+  status.textContent = message;
+}
 
-  function setLoading(isLoading) {
-    submitBtn.disabled    = isLoading;
-    submitBtn.textContent = isLoading ? "Mengirim..." : "Kirim Pesan";
-  }
+function setLoading(isLoading) {
+  submitBtn.disabled    = isLoading;
+  submitBtn.textContent = isLoading ? "Mengirim..." : "Kirim Pesan";
+}
 
+grecaptcha.ready(function () {
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
     setLoading(true);
@@ -72,17 +73,8 @@
         setStatus("✅ Pesan berhasil dikirim! Terima kasih.", true);
         form.reset();
       } else {
-        throw new Error(data.error || "Terjadi kesalahan.");
+        throw new Error(data.error || "Terjadi kesalahan pada server.");
       }
-
-    grecaptcha.ready(function () {
-  form.addEventListener("submit", async function (e) {
-    e.preventDefault();
-    setLoading(true);
-    setStatus("", true);
-
-    try {
-      const token = await grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: "submit" });
 
     } catch (err) {
       setStatus("❌ Gagal mengirim: " + err.message, false);
