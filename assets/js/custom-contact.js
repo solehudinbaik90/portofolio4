@@ -35,43 +35,48 @@
     });
 })();
 
-// --- FORM PESAN --- //
+// --- FORMULIR PESAN --- //
 
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz5gL60I9g-fwaQY0Mu3BdErdW-nVaRJBiRBY4sP8MsZYsm7S4xjLH3ZW70Xpi6oJE/exec";
+  const SCRIPT_URL        = "https://script.google.com/macros/s/AKfycbz5gL60I9g-fwaQY0Mu3BdErdW-nVaRJBiRBY4sP8MsZYsm7S4xjLH3ZW70Xpi6oJE/exec";
+  const RECAPTCHA_SITE_KEY = "6LfZUkwtAAAAAJ40Yg2QOJJI_7WfAatRayNrrfAt";
 
-  document.getElementById("contactForm").addEventListener("submit", function (e) {
+  const form      = document.getElementById("contactForm");
+  const submitBtn = document.getElementById("submitBtn");
+  const status    = document.getElementById("formStatus");
+
+  function setStatus(message, isSuccess) {
+    status.style.color = isSuccess ? "green" : "red";
+    status.textContent = message;
+  }
+
+  function setLoading(isLoading) {
+    submitBtn.disabled    = isLoading;
+    submitBtn.textContent = isLoading ? "Mengirim..." : "Kirim Pesan";
+  }
+
+  form.addEventListener("submit", async function (e) {
     e.preventDefault();
+    setLoading(true);
+    setStatus("", true);
 
-    const form = e.target;
-    const btn = document.getElementById("submitBtn");
-    const status = document.getElementById("formStatus");
+    try {
+      const token = await grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: "submit" });
 
-    btn.disabled = true;
-    btn.textContent = "Mengirim...";
-    status.textContent = "";
+      const formData = new FormData(form);
+      formData.append("recaptchaToken", token);
 
-    const formData = new FormData(form);
+      const res  = await fetch(SCRIPT_URL, { method: "POST", body: formData });
+      const data = await res.json();
 
-    fetch(SCRIPT_URL, {
-      method: "POST",
-      body: formData,
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.result === "success") {
-          status.style.color = "green";
-          status.textContent = "✅ Pesan berhasil dikirim! Terima kasih.";
-          form.reset();
-        } else {
-          throw new Error(data.error || "Terjadi kesalahan.");
-        }
-      })
-      .catch((err) => {
-        status.style.color = "red";
-        status.textContent = "❌ Gagal mengirim: " + err.message;
-      })
-      .finally(() => {
-        btn.disabled = false;
-        btn.textContent = "Kirim Pesan";
-      });
+      if (data.result === "success") {
+        setStatus("✅ Pesan berhasil dikirim! Terima kasih.", true);
+        form.reset();
+      } else {
+        throw new Error(data.error || "Terjadi kesalahan.");
+      }
+    } catch (err) {
+      setStatus("❌ Gagal mengirim: " + err.message, false);
+    } finally {
+      setLoading(false);
+    }
   });
