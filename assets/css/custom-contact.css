@@ -1,6 +1,9 @@
 /* ==========================================
    custom contact css
    ========================================== */
+.grecaptcha-badge {
+    visibility: hidden !important;
+}
 
 body {
             background-color:;
