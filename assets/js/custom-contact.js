@@ -37,7 +37,7 @@
 
 // --- FORMULIR PESAN --- //
 
-  const SCRIPT_URL         = "https://script.google.com/macros/s/AKfycbzJXq9ebaUbVXVgNUt1V7CAZqI4AOzYDv-mGyTmGYtPwv3PzRMzI904eOAIJMxIQ0FZ/exec";
+  const SCRIPT_URL         = "https://script.google.com/macros/s/AKfycbzoMYV90kCMRUw0fey6JmhX71dJtXLyY1Y01AbEwuSYjt6Cx8Mi35CBzwFWdql3SUdJ/exec";
 const RECAPTCHA_SITE_KEY  = "6LfZUkwtAAAAAJ40Yg2QOJJI_7WfAatRayNrrfAt";
 
 const form      = document.getElementById("contactForm");
