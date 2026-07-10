@@ -2,7 +2,8 @@
    custom contact css
    ========================================== */
 .grecaptcha-badge {
-    visibility: hidden !important;
+    bottom: 85px !important;
+    z-index: 99999 !important;
 }
 
 body {
